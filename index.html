@@ -1,0 +1,2068 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lab Maya Seni Rupa Ceria - Kelas 5 SD</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Fredoka & Nunito (Ramah Anak & Ceria) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Fredoka', 'sans-serif'],
+            sans: ['Nunito', 'sans-serif'],
+          },
+          colors: {
+            ceria: {
+              bg: '#FFFDF7',
+              card: '#FFFFFF',
+              sky: '#38BDF8',
+              coral: '#FB7185',
+              sun: '#FBBF24',
+              mint: '#34D399',
+              grape: '#A78BFA',
+              orange: '#FB923C',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Tata Letak Full Screen 16:9 dengan Scrolling Internal yang Nyaman */
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #FEF9C3 0%, #E0F2FE 50%, #FCE7F3 100%);
+      color: #1E293B;
+      user-select: none;
+    }
+
+    /* Scrollbar Ceria & Halus */
+    .custom-scroll::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: rgba(241, 245, 249, 0.8);
+      border-radius: 9999px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #93C5FD;
+      border-radius: 9999px;
+      border: 2px solid #F8FAFC;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+      background: #60A5FA;
+    }
+
+    /* Animasi Tombol Interaktif (Efek Tekan) */
+    .btn-bouncy {
+      transition: transform 0.12s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.12s ease;
+    }
+    .btn-bouncy:hover {
+      transform: translateY(-2px);
+    }
+    .btn-bouncy:active {
+      transform: translateY(2px) scale(0.97);
+    }
+
+    /* Animasi Transisi Tab */
+    .tab-panel {
+      animation: popIn 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: translateY(8px) scale(0.99); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Custom Range Slider */
+    input[type="range"] {
+      -webkit-appearance: none;
+      background: transparent;
+    }
+    input[type="range"]::-webkit-slider-runnable-track {
+      height: 8px;
+      background: #E2E8F0;
+      border-radius: 999px;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+      background: #F59E0B;
+      border: 3px solid #FFFFFF;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+      cursor: pointer;
+      margin-top: -6px;
+    }
+
+    /* Latar Kanvas Gambar */
+    .canvas-paper {
+      background-color: #FFFFFF;
+      background-image: radial-gradient(#CBD5E1 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+
+    @media print {
+      body {
+        overflow: visible !important;
+        height: auto !important;
+        background: #FFFFFF !important;
+      }
+      #app-header, #no-print-actions {
+        display: none !important;
+      }
+      #panel-lkpd {
+        display: block !important;
+        overflow: visible !important;
+        height: auto !important;
+      }
+    }
+  </style>
+</head>
+<body class="flex flex-col h-screen w-screen overflow-hidden antialiased">
+
+  <!-- ==================== HEADER CERIA & 6 TAB NAVIGASI ==================== -->
+  <header id="app-header" class="shrink-0 bg-white/95 backdrop-blur-md border-b-4 border-amber-300 px-3 lg:px-5 py-2 flex flex-wrap items-center justify-between gap-2 shadow-sm z-20">
+    <!-- Logo & Judul Ramah Anak -->
+    <div class="flex items-center gap-2.5">
+      <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-400 via-rose-400 to-sky-400 p-1 shadow-md shrink-0 flex items-center justify-center">
+        <div class="w-full h-full bg-white rounded-xl flex items-center justify-center text-2xl">
+          🎨
+        </div>
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h1 class="font-display font-bold text-base sm:text-lg lg:text-xl text-slate-800 leading-tight">
+            Lab Maya Seni Rupa
+          </h1>
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-amber-100 text-amber-700 border border-amber-300">
+            Kelas 5 SD
+          </span>
+        </div>
+        <p class="text-xs font-semibold text-slate-500 hidden sm:block">
+          Belajar Unsur & Prinsip Seni Rupa Sambil Berkreasi!
+        </p>
+      </div>
+    </div>
+
+    <!-- 6 Tab Navigasi -->
+    <nav class="flex flex-wrap items-center bg-slate-100 p-1 rounded-2xl border-2 border-slate-200 gap-1" role="tablist">
+      <button onclick="switchTab('teori')" id="tab-btn-teori" class="tab-nav-btn btn-bouncy flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold bg-amber-400 text-slate-900 shadow-sm">
+        <span>📚</span><span>Teori</span>
+      </button>
+      <button onclick="switchTab('gambar')" id="tab-btn-gambar" class="tab-nav-btn btn-bouncy flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold text-slate-600 hover:bg-white">
+        <span>🖼️</span><span>Gambar Unsur & Prinsip</span>
+      </button>
+      <button onclick="switchTab('prosedur')" id="tab-btn-prosedur" class="tab-nav-btn btn-bouncy flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold text-slate-600 hover:bg-white">
+        <span>🧭</span><span>Prosedur</span>
+      </button>
+      <button onclick="switchTab('simulasi')" id="tab-btn-simulasi" class="tab-nav-btn btn-bouncy flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold text-slate-600 hover:bg-white">
+        <span>🖌️</span><span>Simulasi</span>
+      </button>
+      <button onclick="switchTab('lkpd')" id="tab-btn-lkpd" class="tab-nav-btn btn-bouncy flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold text-slate-600 hover:bg-white">
+        <span>📝</span><span>LKPD</span>
+      </button>
+      <button onclick="switchTab('pengembang')" id="tab-btn-pengembang" class="tab-nav-btn btn-bouncy flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold text-slate-600 hover:bg-white">
+        <span>👩‍🏫</span><span>Pengembang</span>
+      </button>
+    </nav>
+
+    <!-- Kontrol Audio & Reset Global di Pojok Kanan Atas -->
+    <div class="flex items-center gap-2 shrink-0">
+      <button onclick="toggleAudio()" id="btn-audio" title="Nyalakan / Matikan Suara" class="btn-bouncy flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-extrabold bg-sky-100 hover:bg-sky-200 text-sky-800 border-2 border-sky-300">
+        <span id="audio-icon">🔊</span>
+        <span id="audio-label" class="hidden md:inline">Suara ON</span>
+      </button>
+      <button onclick="openResetModal()" title="Reset Semua ke Awal" class="btn-bouncy flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-extrabold bg-rose-100 hover:bg-rose-200 text-rose-700 border-2 border-rose-300">
+        <span>🔄</span>
+        <span class="hidden md:inline">Reset</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== AREA KONTEN UTAMA (16:9 RESPONSIF) ==================== -->
+  <main class="flex-1 min-h-0 w-full p-3 lg:p-4 overflow-hidden">
+
+    <!-- ==================== TAB 1: TEORI (6 UNSUR & 7 PRINSIP) ==================== -->
+    <section id="panel-teori" class="tab-panel h-full w-full flex flex-col bg-white/90 rounded-3xl border-4 border-sky-200 shadow-lg overflow-hidden">
+      <!-- Sub-Header Pemilih Kategori Teori -->
+      <div class="px-5 py-3 bg-gradient-to-r from-sky-100 via-amber-50 to-rose-100 border-b-2 border-slate-200 flex flex-wrap items-center justify-between gap-3 shrink-0">
+        <div>
+          <h2 class="font-display text-lg sm:text-xl font-bold text-slate-800">📖 Buku Pintar Seni Rupa Kelas 5 SD</h2>
+          <p class="text-xs sm:text-sm text-slate-600 font-semibold">Pilih materi yang ingin kamu baca di bawah ini ya!</p>
+        </div>
+        <div class="flex gap-2">
+          <button onclick="filterTeori('semua')" id="teori-filter-semua" class="btn-bouncy px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-extrabold bg-amber-400 text-slate-900 border-2 border-amber-500">
+            🌟 Semua Materi (13)
+          </button>
+          <button onclick="filterTeori('unsur')" id="teori-filter-unsur" class="btn-bouncy px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-extrabold bg-white text-sky-700 border-2 border-sky-300">
+            🎨 6 Unsur Seni Rupa
+          </button>
+          <button onclick="filterTeori('prinsip')" id="teori-filter-prinsip" class="btn-bouncy px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-extrabold bg-white text-rose-700 border-2 border-rose-300">
+            ⚖️ 7 Prinsip Dasar
+          </button>
+        </div>
+      </div>
+
+      <!-- Konten Scrollable Materi Unsur & Prinsip -->
+      <div class="flex-1 overflow-y-auto custom-scroll p-4 lg:p-6 space-y-6">
+        
+        <!-- BAGIAN 1: 6 UNSUR SENI RUPA -->
+        <div id="teori-section-unsur">
+          <div class="flex items-center gap-2.5 mb-3">
+            <span class="w-9 h-9 rounded-2xl bg-sky-400 text-white font-display font-bold flex items-center justify-center text-lg shadow">1</span>
+            <div>
+              <h3 class="font-display text-lg sm:text-xl font-bold text-sky-800">6 Unsur-Unsur Seni Rupa</h3>
+              <p class="text-xs text-slate-500 font-semibold">Bahan-bahan dasar pembentuk sebuah karya gambar, lukisan, atau patung.</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- 1. Garis -->
+            <div class="bg-sky-50/80 border-2 border-sky-200 rounded-2xl p-4 hover:shadow-md transition-all">
+              <div class="flex items-center justify-between mb-2">
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-sky-500 text-white">Unsur 1</span>
+                <span class="text-2xl">✏️</span>
+              </div>
+              <h4 class="font-display text-lg font-bold text-slate-800 mb-1">Garis (Line)</h4>
+              <p class="text-sm text-slate-700 leading-relaxed mb-2">
+                Goresan memanjang yang terbentuk dari titik-titik yang bersambung. Garis punya banyak sifat lho! Ada garis lurus yang tegas, lengkung yang lembut, dan zig-zag yang tajam.
+              </p>
+              <div class="bg-white rounded-xl p-2.5 border border-sky-200 text-xs text-slate-600">
+                <strong class="text-sky-700">Contoh Sehari-hari & Karya:</strong> Rel kereta api (garis lurus), ombak laut & motif batik parang (garis lengkung), petir di langit (garis zig-zag).
+              </div>
+            </div>
+
+            <!-- 2. Bentuk -->
+            <div class="bg-emerald-50/80 border-2 border-emerald-200 rounded-2xl p-4 hover:shadow-md transition-all">
+              <div class="flex items-center justify-between mb-2">
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-emerald-500 text-white">Unsur 2</span>
+                <span class="text-2xl">🔷</span>
+              </div>
+              <h4 class="font-display text-lg font-bold text-slate-800 mb-1">Bentuk (Shape & Form)</h4>
+              <p class="text-sm text-slate-700 leading-relaxed mb-2">
+                Wujud suatu benda yang dibatasi oleh garis. Bentuk dibagi menjadi <strong>Geometris</strong> (beraturan seperti kotak & lingkaran) dan <strong>Organis</strong> (bebas seperti daun & awan).
+              </p>
+              <div class="bg-white rounded-xl p-2.5 border border-emerald-200 text-xs text-slate-600">
+                <strong class="text-emerald-700">Contoh Sehari-hari & Karya:</strong> Papan tulis & bola (geometris), batu kali, daun mangga, dan gumpalan awan (organis).
+              </div>
+            </div>
+
+            <!-- 3. Warna -->
+            <div class="bg-amber-50/80 border-2 border-amber-200 rounded-2xl p-4 hover:shadow-md transition-all">
+              <div class="flex items-center justify-between mb-2">
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-amber-500 text-white">Unsur 3</span>
+                <span class="text-2xl">🌈</span>
+              </div>
+              <h4 class="font-display text-lg font-bold text-slate-800 mb-1">Warna (Color)</h4>
+              <p class="text-sm text-slate-700 leading-relaxed mb-2">
+                Kesan cahaya yang ditangkap mata kita. Ada <strong>Warna Primer</strong> (Merah, Kuning, Biru), <strong>Warna Sekunder</strong> (Oranye, Hijau, Ungu), dan <strong>Warna Tersier</strong>.
+              </p>
+              <div class="bg-white rounded-xl p-2.5 border border-amber-200 text-xs text-slate-600">
+                <strong class="text-amber-700">Contoh Sehari-hari & Karya:</strong> Warna pelangi, lampu lalu lintas (merah-kuning-hijau), dan lukisan pemandangan yang cerah.
+              </div>
+            </div>
+
+            <!-- 4. Tekstur -->
+            <div class="bg-orange-50/80 border-2 border-orange-200 rounded-2xl p-4 hover:shadow-md transition-all">
+              <div class="flex items-center justify-between mb-2">
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-orange-500 text-white">Unsur 4</span>
+                <span class="text-2xl">🧱</span>
+              </div>
+              <h4 class="font-display text-lg font-bold text-slate-800 mb-1">Tekstur (Texture)</h4>
+              <p class="text-sm text-slate-700 leading-relaxed mb-2">
+                Sifat permukaan suatu benda (kasar, halus, licin, atau berpori). Ada <strong>Tekstur Nyata</strong> (terasa saat diraba) dan <strong>Tekstur Semu</strong> (terlihat kasar di gambar padahal kertasnya rata).
+              </p>
+              <div class="bg-white rounded-xl p-2.5 border border-orange-200 text-xs text-slate-600">
+                <strong class="text-orange-700">Contoh Sehari-hari & Karya:</strong> Kulit durian & amplas (tekstur nyata kasar), kaca cermin (halus), gambar batang kayu di buku (tekstur semu).
+              </div>
+            </div>
+
+            <!-- 5. Ruang -->
+            <div class="bg-purple-50/80 border-2 border-purple-200 rounded-2xl p-4 hover:shadow-md transition-all">
+              <div class="flex items-center justify-between mb-2">
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-purple-500 text-white">Unsur 5</span>
+                <span class="text-2xl">🏞️</span>
+              </div>
+              <h4 class="font-display text-lg font-bold text-slate-800 mb-1">Ruang (Space)</h4>
+              <p class="text-sm text-slate-700 leading-relaxed mb-2">
+                Keluasan bidang atau tempat benda berada. Pada gambar 2D, kesan ruang jauh-dekat dibuat dengan menggambar benda <strong>dekat lebih besar</strong> dan benda <strong>jauh lebih kecil</strong>.
+              </p>
+              <div class="bg-white rounded-xl p-2.5 border border-purple-200 text-xs text-slate-600">
+                <strong class="text-purple-700">Contoh Sehari-hari & Karya:</strong> Ruang kelas (ruang nyata 3D), gambar jalan lurus yang menyempit di kejauhan (ruang semu/perspektif).
+              </div>
+            </div>
+
+            <!-- 6. Gelap Terang -->
+            <div class="bg-slate-100 border-2 border-slate-300 rounded-2xl p-4 hover:shadow-md transition-all">
+              <div class="flex items-center justify-between mb-2">
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-slate-700 text-white">Unsur 6</span>
+                <span class="text-2xl">🌗</span>
+              </div>
+              <h4 class="font-display text-lg font-bold text-slate-800 mb-1">Gelap Terang (Value)</h4>
+              <p class="text-sm text-slate-700 leading-relaxed mb-2">
+                Perbedaan cahaya pada benda. Bagian benda yang terkena cahaya matahari atau lampu menjadi <strong>terang</strong>, sedangkan bagian yang membelakangi cahaya menjadi <strong>gelap (bayangan)</strong>.
+              </p>
+              <div class="bg-white rounded-xl p-2.5 border border-slate-300 text-xs text-slate-600">
+                <strong class="text-slate-700">Contoh Sehari-hari & Karya:</strong> Arsiran pensil pada gambar buah apel atau kendi sehingga terlihat bulat dan nyata seperti benda 3D.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BAGIAN 2: 7 PRINSIP DASAR SENI RUPA -->
+        <div id="teori-section-prinsip" class="pt-2">
+          <div class="flex items-center gap-2.5 mb-3">
+            <span class="w-9 h-9 rounded-2xl bg-rose-400 text-white font-display font-bold flex items-center justify-center text-lg shadow">2</span>
+            <div>
+              <h3 class="font-display text-lg sm:text-xl font-bold text-rose-800">7 Prinsip Dasar Seni Rupa</h3>
+              <p class="text-xs text-slate-500 font-semibold">Aturan rahasia agar susunan unsur-unsur seni rupa terlihat indah, rapi, dan enak dipandang!</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Prinsip 1: Kesatuan -->
+            <div class="bg-rose-50/70 border-2 border-rose-200 rounded-2xl p-4">
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-rose-500 text-white">Prinsip 1</span>
+                <span class="text-xl">🧩</span>
+              </div>
+              <h4 class="font-display text-base font-bold text-slate-800 mb-1">Kesatuan (Unity)</h4>
+              <p class="text-sm text-slate-700 leading-relaxed mb-2">
+                Padunya semua unsur gambar sehingga saling melengkapi dan tidak terlihat terpisah-pisah. Semua objek terasa berada dalam satu cerita yang utuh.
+              </p>
+              <div class="bg-white rounded-xl p-2 border border-rose-200 text-xs text-slate-600">
+                <strong>Contoh:</strong> Gambar suasana taman bermain di mana pohon, ayunan, rumput, dan anak-anak digambar dengan gaya serta warna yang menyatu.
+              </div>
+            </div>
+
+            <!-- Prinsip 2: Keseimbangan -->
+            <div class="bg-indigo-50/70 border-2 border-indigo-200 rounded-2xl p-4">
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-indigo-500 text-white">Prinsip 2</span>
+                <span class="text-xl">⚖️</span>
+              </div>
+              <h4 class="font-display text-base font-bold text-slate-800 mb-1">Keseimbangan (Balance)</h4>
+              <p class="text-sm text-slate-700 leading-relaxed mb-2">
+                Susunan objek bagian kiri dan kanan (atau atas dan bawah) terasa sama berat sehingga gambar tidak terlihat miring atau berat sebelah. Ada <strong>Simetris</strong> dan <strong>Asimetris</strong>.
+              </p>
+              <div class="bg-white rounded-xl p-2 border border-indigo-200 text-xs text-slate-600">
+                <strong>Contoh:</strong> Sayap kupu-kupu (keseimbangan simetris), atau 1 pohon besar di kiri diimbangi 3 batu dan semak kecil di kanan (asimetris).
+              </div>
+            </div>
+
+            <!-- Prinsip 3: Irama / Ritme -->
+            <div class="bg-teal-50/70 border-2 border-teal-200 rounded-2xl p-4">
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-teal-500 text-white">Prinsip 3</span>
+                <span class="text-xl">🎵</span>
+              </div>
+              <h4 class="font-display text-base font-bold text-slate-800 mb-1">Irama atau Ritme (Rhythm)</h4>
+              <p class="text-sm text-slate-700 leading-relaxed mb-2">
+                Pengulangan satu atau beberapa unsur secara teratur dan terus-menerus sehingga menimbulkan kesan gerak yang hidup seperti alunan musik.
+              </p>
+              <div class="bg-white rounded-xl p-2 border border-teal-200 text-xs text-slate-600">
+                <strong>Contoh:</strong> Deretan tiang lampu jalan, motif batik kawung yang berulang, dan barisan ombak di pantai.
+              </div>
+            </div>
+
+            <!-- Prinsip 4: Penekanan -->
+            <div class="bg-yellow-50/80 border-2 border-yellow-300 rounded-2xl p-4">
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-yellow-500 text-slate-900">Prinsip 4</span>
+                <span class="text-xl">🎯</span>
+              </div>
+              <h4 class="font-display text-base font-bold text-slate-800 mb-1">Penekanan (Emphasis)</h4>
+              <p class="text-sm text-slate-700 leading-relaxed mb-2">
+                Membuat satu bagian karya menjadi <strong>pusat perhatian (vocal point)</strong> agar langsung dilihat pertama kali, misalnya dengan warna mencolok atau ukuran lebih besar.
+              </p>
+              <div class="bg-white rounded-xl p-2 border border-yellow-200 text-xs text-slate-600">
+                <strong>Contoh:</strong> Sekuntum bunga mawar merah menyala di tengah hamparan daun-daun hijau.
+              </div>
+            </div>
+
+            <!-- Prinsip 5: Harmoni / Keselarasan -->
+            <div class="bg-pink-50/70 border-2 border-pink-200 rounded-2xl p-4">
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-pink-500 text-white">Prinsip 5</span>
+                <span class="text-xl">🎶</span>
+              </div>
+              <h4 class="font-display text-base font-bold text-slate-800 mb-1">Harmoni / Keselarasan</h4>
+              <p class="text-sm text-slate-700 leading-relaxed mb-2">
+                Kesesuaian dan kedekatan antarunsur dalam karya (seperti perpaduan warna-warna senada) sehingga menghasilkan rasa nyaman dan damai saat dilihat.
+              </p>
+              <div class="bg-white rounded-xl p-2 border border-pink-200 text-xs text-slate-600">
+                <strong>Contoh:</strong> Lukisan senja menggunakan perpaduan warna hangat yang serasi: kuning, jingga, dan merah muda.
+              </div>
+            </div>
+
+            <!-- Prinsip 6: Proporsi -->
+            <div class="bg-cyan-50/70 border-2 border-cyan-200 rounded-2xl p-4">
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-cyan-600 text-white">Prinsip 6</span>
+                <span class="text-xl">📏</span>
+              </div>
+              <h4 class="font-display text-base font-bold text-slate-800 mb-1">Proporsi (Proportion)</h4>
+              <p class="text-sm text-slate-700 leading-relaxed mb-2">
+                Perbandingan ukuran yang wajar dan masuk akal antara satu bagian dengan bagian lainnya, atau antara satu benda dengan benda di sekitarnya.
+              </p>
+              <div class="bg-white rounded-xl p-2 border border-cyan-200 text-xs text-slate-600">
+                <strong>Contoh:</strong> Ukuran kepala manusia sebanding dengan badannya, atau ukuran rumah lebih besar daripada kucing di halamannya.
+              </div>
+            </div>
+
+            <!-- Prinsip 7: Gradasi -->
+            <div class="bg-violet-50/70 border-2 border-violet-200 rounded-2xl p-4 md:col-span-2 lg:col-span-3">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+                <div class="flex items-center gap-2">
+                  <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-violet-600 text-white">Prinsip 7</span>
+                  <h4 class="font-display text-base font-bold text-slate-800">Gradasi (Gradation)</h4>
+                </div>
+                <span class="text-xl">🌅</span>
+              </div>
+              <p class="text-sm text-slate-700 leading-relaxed mb-2">
+                Perubahan tingkat warna, gelap-terang, atau ukuran secara bertahap dan halus dari satu tingkat ke tingkat berikutnya (tidak mendadak).
+              </p>
+              <div class="bg-white rounded-xl p-2 border border-violet-200 text-xs text-slate-600">
+                <strong>Contoh:</strong> Mewarnai langit dengan krayon dari biru tua di atas, lalu biru muda, hingga putih di bagian bawah; atau susunan lingkaran dari besar ke kecil secara bertahap.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: GAMBAR UNSUR & PRINSIP (GALERI INTERAKTIF) ==================== -->
+    <section id="panel-gambar" class="tab-panel hidden h-full w-full flex flex-col bg-white/90 rounded-3xl border-4 border-amber-200 shadow-lg overflow-hidden">
+      <!-- Header Galeri -->
+      <div class="px-5 py-3 bg-gradient-to-r from-amber-100 via-pink-50 to-sky-100 border-b-2 border-slate-200 flex flex-wrap items-center justify-between gap-2 shrink-0">
+        <div>
+          <h2 class="font-display text-lg sm:text-xl font-bold text-slate-800">🖼️ Galeri Gambar Unsur & Prinsip Seni Rupa</h2>
+          <p class="text-xs sm:text-sm text-slate-600 font-semibold">Klik kartu gambar di bawah ini untuk melihat penjelasan detail & contohnya!</p>
+        </div>
+        <div class="flex gap-2">
+          <button onclick="scrollGalleryTo('galeri-unsur')" class="btn-bouncy px-3 py-1.5 rounded-xl text-xs font-extrabold bg-sky-500 text-white shadow-sm">
+            ⬇️ Lompat ke 6 Unsur
+          </button>
+          <button onclick="scrollGalleryTo('galeri-prinsip')" class="btn-bouncy px-3 py-1.5 rounded-xl text-xs font-extrabold bg-rose-500 text-white shadow-sm">
+            ⬇️ Lompat ke 7 Prinsip
+          </button>
+        </div>
+      </div>
+
+      <!-- Grid Kartu Visual Scrollable -->
+      <div id="galeri-scroll-area" class="flex-1 overflow-y-auto custom-scroll p-4 lg:p-5 space-y-6">
+        
+        <!-- Bagian A: 6 Kartu Gambar Unsur Seni Rupa -->
+        <div id="galeri-unsur">
+          <h3 class="font-display text-lg font-bold text-sky-800 mb-3 flex items-center gap-2">
+            <span class="px-3 py-1 rounded-xl bg-sky-100 border border-sky-300 text-sm">🎨 Gambar 6 Unsur Seni Rupa</span>
+          </h3>
+          <div id="galeri-unsur-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Diisi otomatis oleh JavaScript dengan ilustrasi SVG tajam & penuh warna -->
+          </div>
+        </div>
+
+        <!-- Bagian B: 7 Kartu Gambar Prinsip Dasar Seni Rupa -->
+        <div id="galeri-prinsip">
+          <h3 class="font-display text-lg font-bold text-rose-800 mb-3 flex items-center gap-2">
+            <span class="px-3 py-1 rounded-xl bg-rose-100 border border-rose-300 text-sm">⚖️ Gambar 7 Prinsip Dasar Seni Rupa</span>
+          </h3>
+          <div id="galeri-prinsip-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <!-- Diisi otomatis oleh JavaScript dengan ilustrasi SVG tajam & penuh warna -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: PROSEDUR PENGGUNAAN ==================== -->
+    <section id="panel-prosedur" class="tab-panel hidden h-full w-full flex flex-col bg-white/90 rounded-3xl border-4 border-emerald-200 shadow-lg overflow-hidden">
+      <div class="px-5 py-3 bg-gradient-to-r from-emerald-100 via-sky-50 to-amber-100 border-b-2 border-slate-200 flex flex-wrap items-center justify-between gap-2 shrink-0">
+        <div>
+          <h2 class="font-display text-lg sm:text-xl font-bold text-slate-800">🧭 Petunjuk Praktikum Lab Maya (Kelas 5 SD)</h2>
+          <p class="text-xs sm:text-sm text-slate-600 font-semibold">Ikuti 5 langkah seru ini supaya kamu mahir menguasai Unsur & Prinsip Seni Rupa!</p>
+        </div>
+        <button onclick="switchTab('simulasi')" class="btn-bouncy px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold bg-emerald-500 hover:bg-emerald-600 text-white shadow">
+          Mulai Berkreasi di Simulasi 🚀
+        </button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto custom-scroll p-4 lg:p-6">
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+          <!-- Langkah 1 -->
+          <div class="bg-sky-50 border-2 border-sky-300 rounded-3xl p-4 flex flex-col justify-between shadow-sm">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="w-10 h-10 rounded-2xl bg-sky-500 text-white font-display font-bold text-lg flex items-center justify-center shadow">1</span>
+                <span class="text-3xl">📚</span>
+              </div>
+              <h3 class="font-display font-bold text-base text-slate-800 mb-1.5">Baca Buku Pintar (Tab Teori)</h3>
+              <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                Klik tab <strong>Teori</strong> untuk mengenal arti <strong>6 Unsur Seni Rupa</strong> dan <strong>7 Prinsip Dasar Seni Rupa</strong> beserta contoh-contohnya di sekitar kita.
+              </p>
+            </div>
+            <div class="mt-4 pt-2 border-t border-sky-200 text-xs font-bold text-sky-700">
+              Tips: Gunakan tombol filter untuk memilah Unsur dan Prinsip!
+            </div>
+          </div>
+
+          <!-- Langkah 2 -->
+          <div class="bg-amber-50 border-2 border-amber-300 rounded-3xl p-4 flex flex-col justify-between shadow-sm">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="w-10 h-10 rounded-2xl bg-amber-500 text-white font-display font-bold text-lg flex items-center justify-center shadow">2</span>
+                <span class="text-3xl">🖼️</span>
+              </div>
+              <h3 class="font-display font-bold text-base text-slate-800 mb-1.5">Amati Contoh Gambar</h3>
+              <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                Buka tab <strong>Gambar Unsur & Prinsip</strong>. Klik setiap kartu ilustrasi untuk mendengar efek suara ceria dan membaca penjelasan gambarnya.
+              </p>
+            </div>
+            <div class="mt-4 pt-2 border-t border-amber-200 text-xs font-bold text-amber-700">
+              Tips: Perhatikan perbedaan tiap gambar dengan cermat!
+            </div>
+          </div>
+
+          <!-- Langkah 3 -->
+          <div class="bg-rose-50 border-2 border-rose-300 rounded-3xl p-4 flex flex-col justify-between shadow-sm">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="w-10 h-10 rounded-2xl bg-rose-500 text-white font-display font-bold text-lg flex items-center justify-center shadow">3</span>
+                <span class="text-3xl">🖌️</span>
+              </div>
+              <h3 class="font-display font-bold text-base text-slate-800 mb-1.5">Uji Coba di Studio Simulasi</h3>
+              <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                Masuk ke tab <strong>Simulasi</strong>. Coba seluruh studio: menggambar garis & bentuk, mewarnai gradasi, menggeser lampu gelap-terang, hingga cermin simetri!
+              </p>
+            </div>
+            <div class="mt-4 pt-2 border-t border-rose-200 text-xs font-bold text-rose-700">
+              Tips: Klik "Reset Kanvas" jika ingin menggambar ulang!
+            </div>
+          </div>
+
+          <!-- Langkah 4 -->
+          <div class="bg-purple-50 border-2 border-purple-300 rounded-3xl p-4 flex flex-col justify-between shadow-sm">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="w-10 h-10 rounded-2xl bg-purple-500 text-white font-display font-bold text-lg flex items-center justify-center shadow">4</span>
+                <span class="text-3xl">⭐</span>
+              </div>
+              <h3 class="font-display font-bold text-base text-slate-800 mb-1.5">Kumpulkan Bintang di LKPD</h3>
+              <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                Buka tab <strong>LKPD</strong>, tulis nama dan kelasmu, lalu jawab 8 soal kuis bergambar untuk mengumpulkan maksimal <strong>8 Bintang Prestasi</strong>!
+              </p>
+            </div>
+            <div class="mt-4 pt-2 border-t border-purple-200 text-xs font-bold text-purple-700">
+              Tips: Isi juga pendapatmu di Bagian B ya!
+            </div>
+          </div>
+
+          <!-- Langkah 5 -->
+          <div class="bg-emerald-50 border-2 border-emerald-300 rounded-3xl p-4 flex flex-col justify-between shadow-sm">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="w-10 h-10 rounded-2xl bg-emerald-500 text-white font-display font-bold text-lg flex items-center justify-center shadow">5</span>
+                <span class="text-3xl">🏆</span>
+              </div>
+              <h3 class="font-display font-bold text-base text-slate-800 mb-1.5">Simpan Karya & Laporan</h3>
+              <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                Unduh gambar karyamu dari Simulasi dan simpan/cetak hasil LKPD untuk ditunjukkan kepada Bapak/Ibu Guru dan orang tua di rumah.
+              </p>
+            </div>
+            <div class="mt-4 pt-2 border-t border-emerald-200 text-xs font-bold text-emerald-700">
+              Selamat berkarya, Seniman Muda Kelas 5!
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 4: SIMULASI (STUDIO KREATIF INTERAKTIF) ==================== -->
+    <section id="panel-simulasi" class="tab-panel hidden h-full w-full grid grid-cols-12 gap-3 overflow-hidden">
+      
+      <!-- PANEL KIRI (3 Kolom): Pilihan Mode Eksplorasi Unsur & Prinsip -->
+      <div class="col-span-12 md:col-span-3 bg-white/95 rounded-3xl border-4 border-sky-200 p-3 flex flex-col justify-between overflow-hidden shadow">
+        <div class="overflow-y-auto custom-scroll pr-1 space-y-3">
+          <div>
+            <span class="text-xs font-extrabold uppercase tracking-wider text-sky-700 block mb-1.5">🎨 A. Eksplorasi Unsur</span>
+            <div class="space-y-1.5">
+              <button onclick="setSimMode('garis_bentuk')" id="sim-btn-garis_bentuk" class="sim-mode-btn btn-bouncy w-full text-left px-3 py-2 rounded-2xl text-xs font-extrabold bg-amber-400 text-slate-900 border-2 border-amber-500 flex items-center gap-2 shadow-sm">
+                <span>✏️</span><span>Garis & Bentuk</span>
+              </button>
+              <button onclick="setSimMode('warna_gradasi')" id="sim-btn-warna_gradasi" class="sim-mode-btn btn-bouncy w-full text-left px-3 py-2 rounded-2xl text-xs font-extrabold bg-slate-100 hover:bg-sky-50 text-slate-700 border-2 border-slate-200 flex items-center gap-2">
+                <span>🌈</span><span>Warna & Gradasi</span>
+              </button>
+              <button onclick="setSimMode('tekstur_cahaya')" id="sim-btn-tekstur_cahaya" class="sim-mode-btn btn-bouncy w-full text-left px-3 py-2 rounded-2xl text-xs font-extrabold bg-slate-100 hover:bg-sky-50 text-slate-700 border-2 border-slate-200 flex items-center gap-2">
+                <span>🔦</span><span>Tekstur & Gelap Terang</span>
+              </button>
+              <button onclick="setSimMode('ruang')" id="sim-btn-ruang" class="sim-mode-btn btn-bouncy w-full text-left px-3 py-2 rounded-2xl text-xs font-extrabold bg-slate-100 hover:bg-sky-50 text-slate-700 border-2 border-slate-200 flex items-center gap-2">
+                <span>🏞️</span><span>Ruang (Jauh & Dekat)</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="pt-2 border-t-2 border-slate-100">
+            <span class="text-xs font-extrabold uppercase tracking-wider text-rose-600 block mb-1.5">⚖️ B. Playground Prinsip</span>
+            <div class="space-y-1.5">
+              <button onclick="setSimMode('keseimbangan_irama')" id="sim-btn-keseimbangan_irama" class="sim-mode-btn btn-bouncy w-full text-left px-3 py-2 rounded-2xl text-xs font-extrabold bg-slate-100 hover:bg-rose-50 text-slate-700 border-2 border-slate-200 flex items-center gap-2">
+                <span>🦋</span><span>Keseimbangan & Irama</span>
+              </button>
+              <button onclick="setSimMode('penekanan_proporsi')" id="sim-btn-penekanan_proporsi" class="sim-mode-btn btn-bouncy w-full text-left px-3 py-2 rounded-2xl text-xs font-extrabold bg-slate-100 hover:bg-rose-50 text-slate-700 border-2 border-slate-200 flex items-center gap-2">
+                <span>🎯</span><span>Penekanan & Proporsi</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Petunjuk Ramah Anak -->
+        <div class="mt-2 bg-amber-50 border-2 border-amber-200 rounded-2xl p-2.5 shrink-0">
+          <div class="text-xs font-extrabold text-amber-800 mb-0.5">💡 Ayo Coba:</div>
+          <p id="sim-hint-text" class="text-xs text-slate-700 leading-snug">
+            Pilih jenis kuas garis atau stempel bentuk di kanan, lalu gambar langsung di atas kanvas putih!
+          </p>
+        </div>
+      </div>
+
+      <!-- PANEL TENGAH (6 Kolom): Kanvas Gambar & Eksperimen Interaktif -->
+      <div class="col-span-12 md:col-span-6 bg-white/95 rounded-3xl border-4 border-amber-300 p-2.5 flex flex-col shadow overflow-hidden">
+        <!-- Toolbar Atas Kanvas -->
+        <div class="flex flex-wrap items-center justify-between gap-2 pb-2 px-1 shrink-0">
+          <span id="sim-title-badge" class="font-display font-bold text-sm text-slate-800 flex items-center gap-1.5">
+            <span>🎨</span><span>Studio Garis & Bentuk</span>
+          </span>
+          <div class="flex items-center gap-1.5">
+            <button onclick="saveArtWork()" class="btn-bouncy px-3 py-1 rounded-xl text-xs font-extrabold bg-emerald-500 hover:bg-emerald-600 text-white shadow-sm">
+              💾 Simpan Hasil
+            </button>
+            <button onclick="resetSimCanvas()" class="btn-bouncy px-3 py-1 rounded-xl text-xs font-extrabold bg-rose-500 hover:bg-rose-600 text-white shadow-sm">
+              🔄 Reset Kanvas
+            </button>
+          </div>
+        </div>
+
+        <!-- Area Kanvas -->
+        <div id="sim-canvas-wrap" class="flex-1 w-full min-h-0 rounded-2xl border-2 border-slate-300 canvas-paper relative overflow-hidden">
+          <canvas id="art-canvas" class="w-full h-full block cursor-crosshair"></canvas>
+        </div>
+      </div>
+
+      <!-- PANEL KANAN (3 Kolom): Alat Gambar, Palet Warna & Penjelasan -->
+      <div class="col-span-12 md:col-span-3 bg-white/95 rounded-3xl border-4 border-emerald-200 p-3 flex flex-col justify-between overflow-hidden shadow">
+        <div id="sim-tools-panel" class="flex-1 overflow-y-auto custom-scroll pr-1 space-y-3">
+          <!-- Diisi otomatis sesuai mode simulasi yang dipilih -->
+        </div>
+
+        <!-- Kotak Info Konsep -->
+        <div class="mt-2 pt-2 border-t-2 border-slate-100 shrink-0">
+          <div class="bg-sky-50 border border-sky-200 rounded-2xl p-2.5">
+            <span class="text-[11px] font-extrabold text-sky-700 uppercase block mb-0.5">Tahukah Kamu?</span>
+            <p id="sim-concept-info" class="text-xs text-slate-700 leading-snug">
+              Garis lurus memberi kesan kuat, sedangkan garis gelombang terasa lembut seperti ombak air!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 5: LKPD (8 SOAL BERGAMBAR + BINTANG + REFLEKSI) ==================== -->
+    <section id="panel-lkpd" class="tab-panel hidden h-full w-full grid grid-cols-12 gap-3 overflow-hidden">
+      <!-- Kolom Kiri (4 Kolom): Identitas Siswa, Bintang Skor & Tombol Cetak/Unduh -->
+      <div class="col-span-12 md:col-span-4 bg-white/95 rounded-3xl border-4 border-purple-200 p-4 flex flex-col justify-between overflow-y-auto custom-scroll shadow">
+        <div class="space-y-3">
+          <div class="border-b-2 border-purple-100 pb-2">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-purple-100 text-purple-700">Lembar Kerja Siswa</span>
+            <h2 class="font-display text-lg font-bold text-slate-800 mt-1">📝 LKPD Seni Rupa Kelas 5</h2>
+          </div>
+
+          <!-- Input Identitas -->
+          <div class="space-y-2">
+            <div>
+              <label class="block text-xs font-extrabold text-slate-700 mb-1">Nama Lengkap Siswa:</label>
+              <input type="text" id="lkpd-nama" placeholder="Tulis namamu di sini..." class="w-full bg-slate-50 border-2 border-slate-200 focus:border-purple-400 rounded-xl px-3 py-1.5 text-sm font-bold text-slate-800 outline-none" />
+            </div>
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="block text-xs font-extrabold text-slate-700 mb-1">Kelas:</label>
+                <input type="text" id="lkpd-kelas" value="5 SD" class="w-full bg-slate-50 border-2 border-slate-200 focus:border-purple-400 rounded-xl px-3 py-1.5 text-sm font-bold text-slate-800 outline-none" />
+              </div>
+              <div>
+                <label class="block text-xs font-extrabold text-slate-700 mb-1">No. Absen:</label>
+                <input type="text" id="lkpd-absen" placeholder="Contoh: 12" class="w-full bg-slate-50 border-2 border-slate-200 focus:border-purple-400 rounded-xl px-3 py-1.5 text-sm font-bold text-slate-800 outline-none" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Papan Bintang & Nilai Otomatis -->
+          <div class="bg-gradient-to-br from-amber-50 to-yellow-100 border-2 border-amber-300 rounded-2xl p-3 text-center">
+            <div class="text-xs font-extrabold text-amber-800 uppercase">Perolehan Bintang Prestasi</div>
+            <div id="lkpd-stars-display" class="text-xl my-1 tracking-wider">
+              ☆☆☆☆☆☆☆☆
+            </div>
+            <div class="text-2xl font-display font-bold text-slate-800" id="lkpd-score-text">Nilai: 0 / 100</div>
+            <p id="lkpd-motivation" class="text-xs font-semibold text-slate-600 mt-1">
+              Ayo jawab 8 soal kuis di samping untuk mengumpulkan bintang!
+            </p>
+          </div>
+        </div>
+
+        <!-- Tombol Aksi LKPD -->
+        <div id="no-print-actions" class="space-y-2 pt-3 border-t-2 border-slate-100 mt-2">
+          <div class="grid grid-cols-2 gap-2">
+            <button onclick="downloadLKPD()" class="btn-bouncy py-2 px-3 rounded-xl text-xs font-extrabold bg-emerald-500 hover:bg-emerald-600 text-white shadow">
+              📥 Unduh Hasil
+            </button>
+            <button onclick="window.print()" class="btn-bouncy py-2 px-3 rounded-xl text-xs font-extrabold bg-sky-500 hover:bg-sky-600 text-white shadow">
+              🖨️ Cetak LKPD
+            </button>
+          </div>
+          <button onclick="resetLKPD()" class="btn-bouncy w-full py-2 px-3 rounded-xl text-xs font-extrabold bg-rose-100 hover:bg-rose-200 text-rose-700 border-2 border-rose-300">
+            🔄 Reset Jawaban LKPD
+          </button>
+        </div>
+      </div>
+
+      <!-- Kolom Kanan (8 Kolom): Bagian A (8 Soal Kuis Bergambar) & Bagian B (Tantangan Proyek Mini) -->
+      <div class="col-span-12 md:col-span-8 bg-white/95 rounded-3xl border-4 border-sky-200 p-4 flex flex-col overflow-hidden shadow">
+        <div class="flex flex-wrap items-center justify-between gap-2 pb-2.5 mb-2 border-b-2 border-slate-100 shrink-0">
+          <h3 class="font-display font-bold text-base text-slate-800">Bagian A: Kuis Bergambar (8 Soal) & Bagian B: Refleksi Karya</h3>
+          <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full border border-sky-200">Klik pilihan jawabanmu!</span>
+        </div>
+
+        <div class="flex-1 overflow-y-auto custom-scroll pr-1 space-y-4">
+          <!-- Container 8 Soal Kuis Bergambar -->
+          <div id="lkpd-quiz-list" class="space-y-3">
+            <!-- Diisi otomatis oleh JavaScript -->
+          </div>
+
+          <!-- Bagian B: Tantangan Proyek Mini / Refleksi Singkat -->
+          <div class="bg-amber-50 border-2 border-amber-300 rounded-2xl p-4">
+            <h4 class="font-display font-bold text-base text-amber-900 mb-1">🌟 Bagian B: Tantangan Proyek Mini & Refleksi</h4>
+            <p class="text-xs sm:text-sm text-slate-700 mb-2 font-semibold">
+              Setelah kamu menggambar dan mencoba simulasi di <strong>Tab Simulasi</strong>, ceritakan secara singkat karya apa yang kamu buat, serta unsur dan prinsip seni rupa apa saja yang kamu gunakan!
+            </p>
+            <textarea id="lkpd-refleksi" rows="3" placeholder="Contoh: Saya menggambar kupu-kupu simetris menggunakan garis lengkung, warna primer merah dan kuning, serta prinsip keseimbangan simetris..." class="w-full bg-white border-2 border-amber-300 focus:border-amber-500 rounded-xl p-3 text-sm text-slate-800 outline-none resize-none"></textarea>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 6: PENGEMBANG & PANDUAN GURU/ORANG TUA ==================== -->
+    <section id="panel-pengembang" class="tab-panel hidden h-full w-full bg-white/95 rounded-3xl border-4 border-rose-200 p-4 lg:p-6 overflow-y-auto custom-scroll shadow">
+      <div class="max-w-5xl mx-auto space-y-5">
+        <div class="bg-gradient-to-r from-amber-100 via-rose-100 to-sky-100 rounded-3xl p-5 border-2 border-white shadow-sm flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-4">
+            <div class="w-16 h-16 rounded-3xl bg-white border-4 border-amber-300 flex items-center justify-center text-4xl shadow">
+              🎨
+            </div>
+            <div>
+              <span class="px-3 py-0.5 rounded-full text-xs font-extrabold bg-rose-500 text-white">Kurikulum Merdeka • Fase C (Kelas 5 SD)</span>
+              <h2 class="font-display text-xl sm:text-2xl font-bold text-slate-800 mt-1">Lab Maya Seni Rupa Ceria</h2>
+              <p class="text-xs sm:text-sm font-semibold text-slate-600">Media Pembelajaran Interaktif Unsur & Prinsip Dasar Seni Rupa</p>
+            </div>
+          </div>
+          <button onclick="switchTab('teori')" class="btn-bouncy px-4 py-2 rounded-2xl text-xs sm:text-sm font-extrabold bg-amber-400 hover:bg-amber-500 text-slate-900 shadow">
+            Kembali ke Materi 📚
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Profil Pengembang & Tujuan Pembelajaran -->
+          <div class="bg-sky-50 border-2 border-sky-200 rounded-3xl p-5 space-y-3">
+            <h3 class="font-display text-lg font-bold text-sky-900 flex items-center gap-2">
+              <span>👩‍🏫</span><span>Profil & Tujuan Pembelajaran</span>
+            </h3>
+            <div class="bg-white rounded-2xl p-3.5 border border-sky-200 text-sm text-slate-700 space-y-1.5">
+              <p><strong>Dikembangkan oleh:</strong> Tim Inovasi Media Edukasi SD</p>
+              <p><strong>Mata Pelajaran:</strong> Seni Rupa (Kelas 5 Sekolah Dasar)</p>
+              <p><strong>Materi Pokok:</strong> 6 Unsur Seni Rupa & 7 Prinsip Dasar Seni Rupa</p>
+            </div>
+            <div class="bg-white rounded-2xl p-3.5 border border-sky-200 text-xs sm:text-sm text-slate-700 space-y-1.5">
+              <strong class="text-sky-800 block">Tujuan Pembelajaran (Kurikulum Merdeka):</strong>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>Peserta didik mampu mengenali dan menyebutkan 6 unsur seni rupa (garis, bentuk, warna, tekstur, ruang, gelap terang) di lingkungan sekitar.</li>
+                <li>Peserta didik mampu memahami 7 prinsip dasar seni rupa (kesatuan, keseimbangan, irama, penekanan, harmoni, proporsi, gradasi).</li>
+                <li>Peserta didik mampu bereksperimen menggabungkan unsur dan prinsip seni rupa dalam karya gambar digital sederhana.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Panduan Singkat untuk Guru & Orang Tua -->
+          <div class="bg-emerald-50 border-2 border-emerald-200 rounded-3xl p-5 space-y-3">
+            <h3 class="font-display text-lg font-bold text-emerald-900 flex items-center gap-2">
+              <span>👨‍👩‍👧‍👦</span><span>Panduan Singkat Guru & Orang Tua</span>
+            </h3>
+            <div class="bg-white rounded-2xl p-4 border border-emerald-200 text-xs sm:text-sm text-slate-700 space-y-2.5 leading-relaxed">
+              <p>
+                <strong>1. Pendampingan Eksplorasi:</strong> Ajak anak mengamati benda-benda di rumah atau ruang kelas (seperti daun, ubin lantai, atau bayangan lampu) lalu mencocokkannya dengan kartu di tab <em>Gambar Unsur & Prinsip</em>.
+              </p>
+              <p>
+                <strong>2. Kebebasan Berkreasi:</strong> Pada tab <em>Simulasi</em>, biarkan siswa mencoba berbagai alat kuas, cermin simetri, dan pengaturan lampu senter tanpa takut salah. Gunakan tombol <em>Simpan Hasil</em> untuk mengapresiasi karya anak.
+              </p>
+              <p>
+                <strong>3. Evaluasi Mandiri:</strong> Tab <em>LKPD</em> menyediakan 8 soal kuis bergambar dengan penilaian otomatis serta kolom refleksi yang dapat diunduh atau dicetak sebagai portofolio belajar siswa.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== MODAL DETAIL GAMBAR (TAB 2) ==================== -->
+  <div id="gallery-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4" onclick="closeGalleryModal()">
+    <div class="bg-white border-4 border-amber-400 rounded-3xl max-w-lg w-full p-5 shadow-2xl" onclick="event.stopPropagation()">
+      <div class="flex items-center justify-between mb-3">
+        <span id="modal-tag" class="px-3 py-1 rounded-full text-xs font-extrabold bg-amber-100 text-amber-800">Unsur Seni Rupa</span>
+        <button onclick="closeGalleryModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-rose-100 text-slate-700 font-bold">✕</button>
+      </div>
+      <div id="modal-svg-box" class="w-full h-44 bg-slate-50 rounded-2xl border-2 border-slate-200 flex items-center justify-center mb-3 p-2">
+        <!-- SVG ilustrasi diperbesar -->
+      </div>
+      <h3 id="modal-title" class="font-display text-xl font-bold text-slate-800 mb-1">Judul</h3>
+      <p id="modal-desc" class="text-sm text-slate-700 leading-relaxed mb-3">Deskripsi</p>
+      <div class="bg-sky-50 border border-sky-200 rounded-2xl p-3 text-xs text-sky-900 font-semibold">
+        <span class="font-extrabold">🌟 Contoh Nyata: </span><span id="modal-example"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL KONFIRMASI RESET GLOBAL ==================== -->
+  <div id="reset-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white border-4 border-rose-300 rounded-3xl max-w-md w-full p-5 shadow-2xl text-center">
+      <div class="text-4xl mb-2">🔄</div>
+      <h3 class="font-display text-xl font-bold text-slate-800 mb-1">Ulangi Semua dari Awal?</h3>
+      <p class="text-sm text-slate-600 mb-5">Kanvas gambar di Simulasi dan jawaban LKPD akan dibersihkan kembali ke awal.</p>
+      <div class="flex justify-center gap-3">
+        <button onclick="closeResetModal()" class="btn-bouncy px-5 py-2 rounded-2xl text-sm font-extrabold bg-slate-100 hover:bg-slate-200 text-slate-700">Batal</button>
+        <button onclick="confirmGlobalReset()" class="btn-bouncy px-5 py-2 rounded-2xl text-sm font-extrabold bg-rose-500 hover:bg-rose-600 text-white shadow">Ya, Reset Semua!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notifikasi Ceria -->
+  <div id="toast-box" class="fixed bottom-4 right-4 z-50 pointer-events-none opacity-0 translate-y-3 transition-all duration-300">
+    <div class="bg-slate-900 text-white px-4 py-2.5 rounded-2xl shadow-xl flex items-center gap-2 text-xs sm:text-sm font-bold border-2 border-amber-400">
+      <span id="toast-emoji">✨</span>
+      <span id="toast-msg">Notifikasi</span>
+    </div>
+  </div>
+
+  <!-- ==================== JAVASCRIPT: AUDIO, GALERI SVG, SIMULASI & LKPD ==================== -->
+  <script>
+    // =========================================================================
+    // 1. EFEK SUARA CERIA WEB AUDIO API (TANPA FILE EKSTERNAL)
+    // =========================================================================
+    const SoundFX = {
+      ctx: null,
+      enabled: true,
+      lastDraw: 0,
+
+      init() {
+        if (!this.ctx) {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (AudioCtx) this.ctx = new AudioCtx();
+        }
+        if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume();
+      },
+
+      playPop() {
+        if (!this.enabled) return;
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(520, now);
+        osc.frequency.exponentialRampToValueAtTime(840, now + 0.08);
+        gain.gain.setValueAtTime(0.1, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+        osc.connect(gain); gain.connect(this.ctx.destination);
+        osc.start(now); osc.stop(now + 0.09);
+      },
+
+      playDraw() {
+        if (!this.enabled) return;
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        if (now - this.lastDraw < 0.07) return;
+        this.lastDraw = now;
+
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(320 + Math.random() * 240, now);
+        gain.gain.setValueAtTime(0.04, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.045);
+        osc.connect(gain); gain.connect(this.ctx.destination);
+        osc.start(now); osc.stop(now + 0.05);
+      },
+
+      playStar() {
+        if (!this.enabled) return;
+        this.init();
+        if (!this.ctx) return;
+        const notes = [523.25, 659.25, 783.99, 1046.5]; // C5 E5 G5 C6
+        notes.forEach((freq, i) => {
+          const now = this.ctx.currentTime + i * 0.065;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, now);
+          gain.gain.setValueAtTime(0.09, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+          osc.connect(gain); gain.connect(this.ctx.destination);
+          osc.start(now); osc.stop(now + 0.24);
+        });
+      },
+
+      playWrong() {
+        if (!this.enabled) return;
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(240, now);
+        osc.frequency.linearRampToValueAtTime(170, now + 0.18);
+        gain.gain.setValueAtTime(0.06, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.19);
+        osc.connect(gain); gain.connect(this.ctx.destination);
+        osc.start(now); osc.stop(now + 0.2);
+      },
+
+      playReset() {
+        if (!this.enabled) return;
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(600, now);
+        osc.frequency.exponentialRampToValueAtTime(240, now + 0.16);
+        gain.gain.setValueAtTime(0.09, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.17);
+        osc.connect(gain); gain.connect(this.ctx.destination);
+        osc.start(now); osc.stop(now + 0.18);
+      }
+    };
+
+    function toggleAudio() {
+      SoundFX.enabled = !SoundFX.enabled;
+      document.getElementById('audio-icon').textContent = SoundFX.enabled ? '🔊' : '🔇';
+      document.getElementById('audio-label').textContent = SoundFX.enabled ? 'Suara ON' : 'Suara OFF';
+      if (SoundFX.enabled) {
+        SoundFX.playStar();
+        showToast('Suara ceria dinyalakan!', '🔊');
+      } else {
+        showToast('Suara dimatikan', '🔇');
+      }
+    }
+
+    function showToast(msg, emoji = '✨') {
+      const box = document.getElementById('toast-box');
+      document.getElementById('toast-msg').textContent = msg;
+      document.getElementById('toast-emoji').textContent = emoji;
+      box.classList.remove('opacity-0', 'translate-y-3');
+      clearTimeout(window._tTimer);
+      window._tTimer = setTimeout(() => box.classList.add('opacity-0', 'translate-y-3'), 2300);
+    }
+
+    // =========================================================================
+    // 2. DATA GALERI GAMBAR (6 UNSUR + 7 PRINSIP DENGAN SVG BERWARNA)
+    // =========================================================================
+    const GALLERY_ITEMS = [
+      // --- 6 UNSUR SENI RUPA ---
+      {
+        cat: 'unsur',
+        title: '1. Garis (Lurus, Lengkung, Zig-zag, Spiral)',
+        desc: 'Garis adalah goresan memanjang. Ada garis lurus yang kokoh, garis lengkung yang lembut, garis zig-zag yang tajam seperti petir, dan garis spiral yang melingkar.',
+        example: 'Rel kereta api (lurus), ombak laut (lengkung), petir (zig-zag), dan rumah siput (spiral).',
+        svg: `<svg viewBox="0 0 260 120" class="w-full h-full">
+          <line x1="20" y1="22" x2="240" y2="22" stroke="#0284C7" stroke-width="5" stroke-linecap="round"/>
+          <path d="M20 52 Q 55 32, 90 52 T 160 52 T 230 52" fill="none" stroke="#10B981" stroke-width="5" stroke-linecap="round"/>
+          <polyline points="20,86 45,68 70,86 95,68 120,86 145,68 170,86 195,68 220,86 240,72" fill="none" stroke="#F43F5E" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M130 105 C 122 105, 122 95, 130 95 C 142 95, 142 112, 128 112 C 110 112, 110 88, 132 88" fill="none" stroke="#F59E0B" stroke-width="3.5" stroke-linecap="round"/>
+        </svg>`
+      },
+      {
+        cat: 'unsur',
+        title: '2. Bentuk (Geometris & Organis)',
+        desc: 'Bentuk geometris memiliki ukuran teratur (segitiga, persegi, lingkaran), sedangkan bentuk organis bebas menyerupai bentuk makhluk hidup atau alam (daun, awan, batu).',
+        example: 'Buku dan bola (geometris), daun mangga dan awan di langit (organis).',
+        svg: `<svg viewBox="0 0 260 120" class="w-full h-full">
+          <rect x="22" y="25" width="46" height="46" rx="6" fill="#38BDF8" stroke="#0369A1" stroke-width="3"/>
+          <polygon points="105,22 132,72 78,72" fill="#FBBF24" stroke="#B45309" stroke-width="3"/>
+          <path d="M175 72 C 150 55, 160 22, 195 22 C 230 22, 238 58, 210 72 C 195 80, 185 78, 175 72 Z" fill="#34D399" stroke="#047857" stroke-width="3"/>
+          <text x="45" y="102" font-size="12" font-weight="bold" fill="#0369A1" text-anchor="middle">Geometris</text>
+          <text x="195" y="102" font-size="12" font-weight="bold" fill="#047857" text-anchor="middle">Organis</text>
+        </svg>`
+      },
+      {
+        cat: 'unsur',
+        title: '3. Warna (Primer & Sekunder)',
+        desc: 'Warna Primer terdiri dari Merah, Kuning, dan Biru. Jika dicampur akan menjadi Warna Sekunder: Oranye (Merah+Kuning), Hijau (Kuning+Biru), dan Ungu (Merah+Biru).',
+        example: 'Pelangi setelah hujan, cat air, dan krayon warna-warni.',
+        svg: `<svg viewBox="0 0 260 120" class="w-full h-full">
+          <circle cx="55" cy="45" r="24" fill="#EF4444"/><text x="55" y="84" font-size="11" font-weight="bold" fill="#B91C1C" text-anchor="middle">Merah</text>
+          <circle cx="130" cy="45" r="24" fill="#FACC15"/><text x="130" y="84" font-size="11" font-weight="bold" fill="#A16207" text-anchor="middle">Kuning</text>
+          <circle cx="205" cy="45" r="24" fill="#3B82F6"/><text x="205" y="84" font-size="11" font-weight="bold" fill="#1D4ED8" text-anchor="middle">Biru</text>
+          <rect x="35" y="96" width="50" height="14" rx="7" fill="#F97316"/>
+          <rect x="105" y="96" width="50" height="14" rx="7" fill="#22C55E"/>
+          <rect x="175" y="96" width="50" height="14" rx="7" fill="#A855F7"/>
+        </svg>`
+      },
+      {
+        cat: 'unsur',
+        title: '4. Tekstur (Permukaan Halus & Kasar)',
+        desc: 'Tekstur adalah nilai raba permukaan benda. Ada tekstur nyata (bisa diraba kasar/halusnya) dan tekstur semu (terlihat kasar di gambar padahal kertasnya licin).',
+        example: 'Dinding bata dan kulit nanas (kasar), layar kaca (halus).',
+        svg: `<svg viewBox="0 0 260 120" class="w-full h-full">
+          <defs>
+            <linearGradient id="smoothG" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#7DD3FC"/><stop offset="100%" stop-color="#0284C7"/>
+            </linearGradient>
+          </defs>
+          <rect x="22" y="18" width="95" height="72" rx="12" fill="url(#smoothG)"/>
+          <text x="70" y="108" font-size="12" font-weight="bold" fill="#0369A1" text-anchor="middle">Tekstur Halus</text>
+          <rect x="142" y="18" width="95" height="72" rx="12" fill="#B45309"/>
+          <circle cx="158" cy="34" r="3" fill="#FEF3C7"/><circle cx="182" cy="42" r="3.5" fill="#78350F"/><circle cx="212" cy="32" r="3" fill="#FEF3C7"/>
+          <circle cx="165" cy="64" r="3.5" fill="#78350F"/><circle cx="195" cy="70" r="3" fill="#FEF3C7"/><circle cx="220" cy="58" r="3.5" fill="#78350F"/>
+          <text x="190" y="108" font-size="12" font-weight="bold" fill="#92400E" text-anchor="middle">Tekstur Kasar</text>
+        </svg>`
+      },
+      {
+        cat: 'unsur',
+        title: '5. Ruang (2D & Ilusi Kedalaman 3D)',
+        desc: 'Ruang memberi kesan jauh dan dekat. Benda yang berada di dekat kita digambar lebih besar, sedangkan benda yang jauh di kejauhan digambar semakin kecil.',
+        example: 'Jalan raya lurus yang tampak mengecil di ujung cakrawala.',
+        svg: `<svg viewBox="0 0 260 120" class="w-full h-full">
+          <rect x="15" y="12" width="230" height="52" fill="#BAE6FD" rx="8"/>
+          <rect x="15" y="64" width="230" height="44" fill="#86EFAC" rx="8"/>
+          <polygon points="130,64 60,108 200,108" fill="#64748B"/>
+          <line x1="130" y1="64" x2="130" y2="108" stroke="#FACC15" stroke-width="3" stroke-dasharray="6,5"/>
+          <circle cx="130" cy="64" r="5" fill="#F43F5E"/>
+        </svg>`
+      },
+      {
+        cat: 'unsur',
+        title: '6. Gelap Terang (Cahaya & Bayangan)',
+        desc: 'Bagian benda yang terkena cahaya lampu/matahari terlihat terang, sedangkan sisi yang membelakangi cahaya terlihat gelap dan memiliki bayangan.',
+        example: 'Gambar bola atau buah apel yang diarsir sehingga tampak bulat nyata.',
+        svg: `<svg viewBox="0 0 260 120" class="w-full h-full">
+          <defs>
+            <radialGradient id="ballGrad" cx="35%" cy="35%" r="65%">
+              <stop offset="0%" stop-color="#FFFFFF"/>
+              <stop offset="35%" stop-color="#FB7185"/>
+              <stop offset="85%" stop-color="#9F1239"/>
+              <stop offset="100%" stop-color="#4C0519"/>
+            </radialGradient>
+          </defs>
+          <circle cx="48" cy="30" r="14" fill="#FACC15"/>
+          <line x1="65" y1="38" x2="88" y2="48" stroke="#F59E0B" stroke-width="2.5" stroke-dasharray="3,3"/>
+          <ellipse cx="155" cy="96" rx="45" ry="10" fill="rgba(15,23,42,0.28)"/>
+          <circle cx="135" cy="62" r="36" fill="url(#ballGrad)"/>
+        </svg>`
+      },
+
+      // --- 7 PRINSIP DASAR SENI RUPA ---
+      {
+        cat: 'prinsip',
+        title: '1. Kesatuan (Unity)',
+        desc: 'Semua bagian dalam gambar saling menyatu, rapi, dan berkaitan sehingga membentuk satu cerita yang utuh.',
+        example: 'Gambar kebun bunga di mana pot, batang, daun, dan matahari menyatu serasi.',
+        svg: `<svg viewBox="0 0 260 120" class="w-full h-full">
+          <rect x="35" y="18" width="190" height="84" rx="18" fill="#FEF3C7" stroke="#F59E0B" stroke-width="3"/>
+          <circle cx="95" cy="60" r="22" fill="#38BDF8"/>
+          <circle cx="130" cy="60" r="22" fill="#F43F5E" opacity="0.85"/>
+          <circle cx="165" cy="60" r="22" fill="#34D399" opacity="0.85"/>
+        </svg>`
+      },
+      {
+        cat: 'prinsip',
+        title: '2. Keseimbangan (Simetris & Asimetris)',
+        desc: 'Susunan gambar bagian kiri dan kanan terasa seimbang sehingga tidak berat sebelah.',
+        example: 'Sayap kupu-kupu (simetris kiri dan kanan sama persis).',
+        svg: `<svg viewBox="0 0 260 120" class="w-full h-full">
+          <line x1="130" y1="15" x2="130" y2="105" stroke="#94A3B8" stroke-width="2" stroke-dasharray="5,5"/>
+          <ellipse cx="95" cy="48" rx="28" ry="20" fill="#A855F7"/>
+          <ellipse cx="100" cy="78" rx="20" ry="15" fill="#EC4899"/>
+          <ellipse cx="165" cy="48" rx="28" ry="20" fill="#A855F7"/>
+          <ellipse cx="160" cy="78" rx="20" ry="15" fill="#EC4899"/>
+          <rect x="126" y="34" width="8" height="54" rx="4" fill="#1E293B"/>
+        </svg>`
+      },
+      {
+        cat: 'prinsip',
+        title: '3. Irama / Ritme (Pengulangan Pola)',
+        desc: 'Pengulangan bentuk atau warna secara teratur sehingga gambar terasa hidup dan bergerak seperti irama lagu.',
+        example: 'Deretan pohon di tepi jalan atau pola gelombang yang berulang.',
+        svg: `<svg viewBox="0 0 260 120" class="w-full h-full">
+          <circle cx="38" cy="60" r="18" fill="#14B8A6"/>
+          <circle cx="84" cy="45" r="18" fill="#38BDF8"/>
+          <circle cx="130" cy="60" r="18" fill="#14B8A6"/>
+          <circle cx="176" cy="45" r="18" fill="#38BDF8"/>
+          <circle cx="222" cy="60" r="18" fill="#14B8A6"/>
+        </svg>`
+      },
+      {
+        cat: 'prinsip',
+        title: '4. Penekanan (Pusat Perhatian)',
+        desc: 'Memberi warna mencolok atau ukuran berbeda pada satu objek utama agar langsung menarik perhatian mata.',
+        example: 'Satu bintang emas besar di antara lingkaran-lingkaran abu-abu.',
+        svg: `<svg viewBox="0 0 260 120" class="w-full h-full">
+          <circle cx="48" cy="40" r="14" fill="#CBD5E1"/><circle cx="48" cy="82" r="14" fill="#CBD5E1"/>
+          <circle cx="212" cy="40" r="14" fill="#CBD5E1"/><circle cx="212" cy="82" r="14" fill="#CBD5E1"/>
+          <polygon points="130,20 142,46 170,50 150,70 155,98 130,84 105,98 110,70 90,50 118,46" fill="#F43F5E" stroke="#FBBF24" stroke-width="3"/>
+        </svg>`
+      },
+      {
+        cat: 'prinsip',
+        title: '5. Harmoni (Keselarasan Warna)',
+        desc: 'Perpaduan warna-warna yang serasi dan berdekatan sehingga terasa sejuk dan nyaman dipandang mata.',
+        example: 'Perpaduan warna daun hijau tua, hijau muda, dan kuning kehijauan.',
+        svg: `<svg viewBox="0 0 260 120" class="w-full h-full">
+          <rect x="30" y="25" width="60" height="70" rx="14" fill="#0EA5E9"/>
+          <rect x="100" y="25" width="60" height="70" rx="14" fill="#14B8A6"/>
+          <rect x="170" y="25" width="60" height="70" rx="14" fill="#22C55E"/>
+        </svg>`
+      },
+      {
+        cat: 'prinsip',
+        title: '6. Proporsi (Perbandingan Ukuran)',
+        desc: 'Perbandingan ukuran antarbagian benda yang wajar dan sesuai kenyataan.',
+        example: 'Pohon besar di samping rumah dan anak kucing kecil di depannya.',
+        svg: `<svg viewBox="0 0 260 120" class="w-full h-full">
+          <rect x="42" y="25" width="54" height="75" rx="8" fill="#38BDF8"/>
+          <rect x="115" y="55" width="40" height="45" rx="8" fill="#FBBF24"/>
+          <rect x="175" y="78" width="26" height="22" rx="6" fill="#FB7185"/>
+        </svg>`
+      },
+      {
+        cat: 'prinsip',
+        title: '7. Gradasi (Perubahan Bertahap)',
+        desc: 'Perubahan warna atau gelap-terang secara perlahan dan halus dari tua ke muda atau besar ke kecil.',
+        example: 'Langit senja yang berubah halus dari jingga tua ke kuning muda.',
+        svg: `<svg viewBox="0 0 260 120" class="w-full h-full">
+          <defs>
+            <linearGradient id="gradCard" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#7C3AED"/>
+              <stop offset="50%" stop-color="#EC4899"/>
+              <stop offset="100%" stop-color="#FDE047"/>
+            </linearGradient>
+          </defs>
+          <rect x="24" y="24" width="212" height="72" rx="16" fill="url(#gradCard)"/>
+        </svg>`
+      }
+    ];
+
+    function renderGallery() {
+      const unsurGrid = document.getElementById('galeri-unsur-grid');
+      const prinsipGrid = document.getElementById('galeri-prinsip-grid');
+
+      const buildCard = (item, index) => `
+        <div onclick="openGalleryModal(${index})" class="btn-bouncy cursor-pointer bg-white rounded-3xl border-2 ${
+          item.cat === 'unsur' ? 'border-sky-200 hover:border-sky-400' : 'border-rose-200 hover:border-rose-400'
+        } p-3.5 shadow-sm hover:shadow-md flex flex-col justify-between">
+          <div>
+            <div class="w-full h-32 bg-slate-50 rounded-2xl border border-slate-200 mb-2.5 p-2 flex items-center justify-center">
+              ${item.svg}
+            </div>
+            <h4 class="font-display font-bold text-sm sm:text-base text-slate-800 mb-1">${item.title}</h4>
+            <p class="text-xs text-slate-600 line-clamp-2 leading-relaxed">${item.desc}</p>
+          </div>
+          <div class="mt-2.5 pt-2 border-t border-slate-100 flex items-center justify-between text-xs font-extrabold ${
+            item.cat === 'unsur' ? 'text-sky-600' : 'text-rose-600'
+          }">
+            <span>Klik untuk perbesar</span>
+            <span>🔍</span>
+          </div>
+        </div>
+      `;
+
+      unsurGrid.innerHTML = GALLERY_ITEMS.map((item, idx) => item.cat === 'unsur' ? buildCard(item, idx) : '').join('');
+      prinsipGrid.innerHTML = GALLERY_ITEMS.map((item, idx) => item.cat === 'prinsip' ? buildCard(item, idx) : '').join('');
+    }
+
+    function openGalleryModal(index) {
+      const item = GALLERY_ITEMS[index];
+      if (!item) return;
+      SoundFX.playPop();
+      document.getElementById('modal-tag').textContent = item.cat === 'unsur' ? '🎨 Unsur Seni Rupa' : '⚖️ Prinsip Dasar Seni Rupa';
+      document.getElementById('modal-svg-box').innerHTML = item.svg;
+      document.getElementById('modal-title').textContent = item.title;
+      document.getElementById('modal-desc').textContent = item.desc;
+      document.getElementById('modal-example').textContent = item.example;
+      document.getElementById('gallery-modal').classList.remove('hidden');
+    }
+
+    function closeGalleryModal() {
+      SoundFX.playPop();
+      document.getElementById('gallery-modal').classList.add('hidden');
+    }
+
+    function scrollGalleryTo(targetId) {
+      SoundFX.playPop();
+      const target = document.getElementById(targetId);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // =========================================================================
+    // 3. FILTER TAB TEORI (SEMUA / 6 UNSUR / 7 PRINSIP)
+    // =========================================================================
+    function filterTeori(type) {
+      SoundFX.playPop();
+      const secUnsur = document.getElementById('teori-section-unsur');
+      const secPrinsip = document.getElementById('teori-section-prinsip');
+
+      ['semua', 'unsur', 'prinsip'].forEach(t => {
+        const btn = document.getElementById(`teori-filter-${t}`);
+        if (t === type) {
+          btn.className = 'btn-bouncy px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-extrabold bg-amber-400 text-slate-900 border-2 border-amber-500';
+        } else {
+          btn.className = 'btn-bouncy px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-extrabold bg-white text-slate-700 border-2 border-slate-200';
+        }
+      });
+
+      if (type === 'semua') {
+        secUnsur.classList.remove('hidden');
+        secPrinsip.classList.remove('hidden');
+      } else if (type === 'unsur') {
+        secUnsur.classList.remove('hidden');
+        secPrinsip.classList.add('hidden');
+      } else {
+        secUnsur.classList.add('hidden');
+        secPrinsip.classList.remove('hidden');
+      }
+    }
+
+    // =========================================================================
+    // 4. STUDIO SIMULASI INTERAKTIF (UNSUR & PRINSIP SENI RUPA)
+    // =========================================================================
+    const simData = {
+      mode: 'garis_bentuk',
+      tool: 'brush_lurus', // brush_lurus, brush_gelombang, brush_zigzag, stamp_kotak, stamp_lingkaran, stamp_daun
+      color: '#EF4444',
+      size: 6,
+      isDrawing: false,
+      lastX: 0,
+      lastY: 0,
+      wavePhase: 0,
+      // Mode Tekstur & Gelap Terang
+      textureType: 'bata', // bata, kayu, rumput, bola3d
+      lightX: 0.3,
+      lightY: 0.3,
+      // Mode Ruang
+      ruangItems: [
+        { type: 'gunung', x: 0.5, y: 0.45, scale: 1.0 },
+        { type: 'rumah', x: 0.35, y: 0.72, scale: 1.1 },
+        { type: 'pohon', x: 0.72, y: 0.58, scale: 0.65 }
+      ],
+      draggingRuangIdx: -1,
+      // Mode Keseimbangan & Irama
+      mirrorMode: true,
+      // Mode Penekanan & Proporsi
+      focusSize: 65,
+      focusColor: '#F43F5E'
+    };
+
+    let artCanvas, artCtx;
+
+    function initSimStudio() {
+      artCanvas = document.getElementById('art-canvas');
+      artCtx = artCanvas.getContext('2d');
+      resizeArtCanvas(false);
+      setSimMode('garis_bentuk', false);
+      attachArtEvents();
+      window.addEventListener('resize', () => resizeArtCanvas(true));
+    }
+
+    function resizeArtCanvas(preserve = true) {
+      if (!artCanvas) return;
+      const wrap = document.getElementById('sim-canvas-wrap');
+      const rect = wrap.getBoundingClientRect();
+      if (rect.width <= 0 || rect.height <= 0) return;
+
+      let temp = null;
+      if (preserve && artCanvas.width > 0 && artCanvas.height > 0) {
+        temp = document.createElement('canvas');
+        temp.width = artCanvas.width;
+        temp.height = artCanvas.height;
+        temp.getContext('2d').drawImage(artCanvas, 0, 0);
+      }
+
+      artCanvas.width = rect.width;
+      artCanvas.height = rect.height;
+
+      if (temp && (simData.mode === 'garis_bentuk' || simData.mode === 'warna_gradasi' || simData.mode === 'keseimbangan_irama')) {
+        artCtx.drawImage(temp, 0, 0);
+      } else {
+        redrawSpecialModes();
+      }
+    }
+
+    function setSimMode(mode, withSound = true) {
+      simData.mode = mode;
+      if (withSound) SoundFX.playPop();
+
+      // Update style tombol kiri
+      document.querySelectorAll('.sim-mode-btn').forEach(btn => {
+        btn.className = 'sim-mode-btn btn-bouncy w-full text-left px-3 py-2 rounded-2xl text-xs font-extrabold bg-slate-100 hover:bg-sky-50 text-slate-700 border-2 border-slate-200 flex items-center gap-2';
+      });
+      const activeBtn = document.getElementById(`sim-btn-${mode}`);
+      if (activeBtn) {
+        activeBtn.className = 'sim-mode-btn btn-bouncy w-full text-left px-3 py-2 rounded-2xl text-xs font-extrabold bg-amber-400 text-slate-900 border-2 border-amber-500 flex items-center gap-2 shadow-sm';
+      }
+
+      const titleBadge = document.getElementById('sim-title-badge');
+      const hintText = document.getElementById('sim-hint-text');
+      const conceptInfo = document.getElementById('sim-concept-info');
+      const toolsPanel = document.getElementById('sim-tools-panel');
+
+      if (mode === 'garis_bentuk') {
+        titleBadge.innerHTML = '<span>✏️</span><span>Studio Garis & Bentuk</span>';
+        hintText.textContent = 'Pilih jenis garis atau stempel bentuk di kanan, lalu klik/seret di kanvas!';
+        conceptInfo.textContent = 'Garis lurus terasa kuat, garis gelombang terasa lembut, sedangkan bentuk geometris & organis membentuk wujud benda.';
+        simData.tool = 'brush_lurus';
+        toolsPanel.innerHTML = `
+          <div>
+            <span class="text-xs font-extrabold text-slate-700 block mb-1.5">1. Pilih Kuas Garis:</span>
+            <div class="grid grid-cols-3 gap-1.5">
+              <button onclick="selectTool('brush_lurus')" class="btn-bouncy p-2 rounded-xl text-xs font-bold bg-sky-100 border-2 border-sky-300 text-sky-900">➖ Lurus</button>
+              <button onclick="selectTool('brush_gelombang')" class="btn-bouncy p-2 rounded-xl text-xs font-bold bg-emerald-100 border-2 border-emerald-300 text-emerald-900">〰️ Ombak</button>
+              <button onclick="selectTool('brush_zigzag')" class="btn-bouncy p-2 rounded-xl text-xs font-bold bg-rose-100 border-2 border-rose-300 text-rose-900">⚡ Zig-zag</button>
+            </div>
+          </div>
+          <div>
+            <span class="text-xs font-extrabold text-slate-700 block mb-1.5">2. Stempel Bentuk (Klik Kanvas):</span>
+            <div class="grid grid-cols-3 gap-1.5">
+              <button onclick="selectTool('stamp_kotak')" class="btn-bouncy p-2 rounded-xl text-xs font-bold bg-amber-100 border-2 border-amber-300 text-amber-900">🟦 Kotak</button>
+              <button onclick="selectTool('stamp_lingkaran')" class="btn-bouncy p-2 rounded-xl text-xs font-bold bg-purple-100 border-2 border-purple-300 text-purple-900">🟡 Bulat</button>
+              <button onclick="selectTool('stamp_daun')" class="btn-bouncy p-2 rounded-xl text-xs font-bold bg-teal-100 border-2 border-teal-300 text-teal-900">🍃 Daun</button>
+            </div>
+          </div>
+          ${buildColorAndSizeControls()}
+        `;
+        clearArtCanvasOnly();
+      } else if (mode === 'warna_gradasi') {
+        titleBadge.innerHTML = '<span>🌈</span><span>Studio Warna & Gradasi</span>';
+        hintText.textContent = 'Coba kuas Warna Primer/Sekunder atau pilih Kuas Gradasi Pelangi yang berubah warna otomatis!';
+        conceptInfo.textContent = 'Gradasi adalah perubahan warna secara bertahap dan halus, seperti warna pelangi atau langit senja.';
+        simData.tool = 'brush_pelangi';
+        toolsPanel.innerHTML = `
+          <div>
+            <span class="text-xs font-extrabold text-slate-700 block mb-1.5">Mode Kuas Warna:</span>
+            <div class="grid grid-cols-2 gap-1.5">
+              <button onclick="selectTool('brush_lurus')" class="btn-bouncy p-2 rounded-xl text-xs font-bold bg-sky-100 border-2 border-sky-300 text-sky-900">🎨 Warna Polos</button>
+              <button onclick="selectTool('brush_pelangi')" class="btn-bouncy p-2 rounded-xl text-xs font-bold bg-gradient-to-r from-rose-200 via-amber-200 to-sky-200 border-2 border-amber-400 text-slate-900">🌈 Gradasi Pelangi</button>
+            </div>
+          </div>
+          <div>
+            <span class="text-xs font-extrabold text-slate-700 block mb-1">Palet Warna Primer & Sekunder:</span>
+            <div class="grid grid-cols-3 gap-1.5">
+              <button onclick="pickColor('#EF4444')" class="btn-bouncy py-1.5 rounded-xl bg-red-500 text-white text-[11px] font-extrabold shadow">Merah (P)</button>
+              <button onclick="pickColor('#FACC15')" class="btn-bouncy py-1.5 rounded-xl bg-yellow-400 text-slate-900 text-[11px] font-extrabold shadow">Kuning (P)</button>
+              <button onclick="pickColor('#3B82F6')" class="btn-bouncy py-1.5 rounded-xl bg-blue-500 text-white text-[11px] font-extrabold shadow">Biru (P)</button>
+              <button onclick="pickColor('#F97316')" class="btn-bouncy py-1.5 rounded-xl bg-orange-500 text-white text-[11px] font-extrabold shadow">Oranye (S)</button>
+              <button onclick="pickColor('#22C55E')" class="btn-bouncy py-1.5 rounded-xl bg-green-500 text-white text-[11px] font-extrabold shadow">Hijau (S)</button>
+              <button onclick="pickColor('#A855F7')" class="btn-bouncy py-1.5 rounded-xl bg-purple-500 text-white text-[11px] font-extrabold shadow">Ungu (S)</button>
+            </div>
+          </div>
+          ${buildSizeSliderOnly()}
+        `;
+        clearArtCanvasOnly();
+      } else if (mode === 'tekstur_cahaya') {
+        titleBadge.innerHTML = '<span>🔦</span><span>Tekstur & Gelap Terang 3D</span>';
+        hintText.textContent = 'Gerakkan kursor/jari di kanvas untuk mengarahkan Lampu Senter dan melihat perubahan bayangan!';
+        conceptInfo.textContent = 'Sisi benda yang terkena cahaya senter menjadi terang, sedangkan sisi sebaliknya menjadi gelap dan berbayangan.';
+        simData.textureType = 'bola3d';
+        toolsPanel.innerHTML = `
+          <div>
+            <span class="text-xs font-extrabold text-slate-700 block mb-1.5">Pilih Objek Uji Cahaya & Tekstur:</span>
+            <div class="space-y-1.5">
+              <button onclick="setTextureObj('bola3d')" class="btn-bouncy w-full text-left p-2 rounded-xl text-xs font-extrabold bg-amber-100 border-2 border-amber-400 text-amber-900">⚽ Bola 3D (Uji Gelap Terang)</button>
+              <button onclick="setTextureObj('bata')" class="btn-bouncy w-full text-left p-2 rounded-xl text-xs font-extrabold bg-rose-100 border-2 border-rose-300 text-rose-900">🧱 Dinding Bata (Tekstur Kasar)</button>
+              <button onclick="setTextureObj('kayu')" class="btn-bouncy w-full text-left p-2 rounded-xl text-xs font-extrabold bg-orange-100 border-2 border-orange-300 text-orange-900">🪵 Papan Kayu (Tekstur Serat)</button>
+            </div>
+          </div>
+        `;
+        redrawSpecialModes();
+      } else if (mode === 'ruang') {
+        titleBadge.innerHTML = '<span>🏞️</span><span>Studio Ruang (Dekat & Jauh)</span>';
+        hintText.textContent = 'Seret Rumah, Pohon, atau Gunung ke atas (jauh = kecil) atau ke bawah (dekat = besar)!';
+        conceptInfo.textContent = 'Dalam gambar 2D, ruang jauh-dekat dibuat dengan menggambar benda yang dekat lebih besar dan benda yang jauh lebih kecil.';
+        toolsPanel.innerHTML = `
+          <div class="space-y-2">
+            <span class="text-xs font-extrabold text-slate-700 block">Atur Posisi Ruang:</span>
+            <button onclick="resetRuangPreset()" class="btn-bouncy w-full p-2 rounded-xl text-xs font-extrabold bg-sky-100 border-2 border-sky-300 text-sky-900">🔄 Susun Ulang Pemandangan</button>
+            <p class="text-xs text-slate-600 bg-slate-50 p-2 rounded-xl border border-slate-200">
+              Coba tarik <strong>Rumah</strong> ke dekat kaki gunung (atas), perhatikan ukurannya otomatis mengecil karena jauh!
+            </p>
+          </div>
+        `;
+        redrawSpecialModes();
+      } else if (mode === 'keseimbangan_irama') {
+        titleBadge.innerHTML = '<span>🦋</span><span>Keseimbangan Simetris & Irama</span>';
+        hintText.textContent = 'Gambarlah di sisi kiri atau kanan kanvas, cermin ajaib akan menirunya secara seimbang!';
+        conceptInfo.textContent = 'Keseimbangan simetris membuat gambar sisi kiri dan kanan sama persis seperti sayap kupu-kupu.';
+        simData.tool = 'brush_lurus';
+        simData.mirrorMode = true;
+        toolsPanel.innerHTML = `
+          <div>
+            <span class="text-xs font-extrabold text-slate-700 block mb-1.5">Mode Prinsip:</span>
+            <button onclick="toggleMirrorMode()" id="btn-mirror-toggle" class="btn-bouncy w-full p-2.5 rounded-xl text-xs font-extrabold bg-purple-500 text-white shadow">
+              🦋 Cermin Simetris: AKTIF
+            </button>
+          </div>
+          ${buildColorAndSizeControls()}
+        `;
+        clearArtCanvasOnly();
+        drawMirrorGuide();
+      } else if (mode === 'penekanan_proporsi') {
+        titleBadge.innerHTML = '<span>🎯</span><span>Penekanan & Proporsi</span>';
+        hintText.textContent = 'Geser ukuran Bunga Utama dan pilih warna mencolok agar menjadi Pusat Perhatian!';
+        conceptInfo.textContent = 'Penekanan membuat satu objek paling menonjol, sedangkan Proporsi mengatur perbandingan ukuran yang pas.';
+        toolsPanel.innerHTML = `
+          <div class="bg-slate-50 p-2.5 rounded-2xl border border-slate-200">
+            <div class="flex justify-between text-xs font-extrabold mb-1">
+              <span>Ukuran Objek Utama (Proporsi):</span>
+              <span class="text-rose-600" id="lbl-focus-size">${simData.focusSize} px</span>
+            </div>
+            <input type="range" min="25" max="110" value="${simData.focusSize}" oninput="updateFocusSize(this.value)" class="w-full">
+          </div>
+          <div>
+            <span class="text-xs font-extrabold text-slate-700 block mb-1">Warna Kontras Pusat Perhatian:</span>
+            <div class="grid grid-cols-3 gap-1.5">
+              <button onclick="updateFocusColor('#F43F5E')" class="btn-bouncy py-1.5 rounded-xl bg-rose-500 text-white text-xs font-bold">Merah</button>
+              <button onclick="updateFocusColor('#F59E0B')" class="btn-bouncy py-1.5 rounded-xl bg-amber-500 text-white text-xs font-bold">Oranye</button>
+              <button onclick="updateFocusColor('#8B5CF6')" class="btn-bouncy py-1.5 rounded-xl bg-violet-500 text-white text-xs font-bold">Ungu</button>
+            </div>
+          </div>
+        `;
+        redrawSpecialModes();
+      }
+    }
+
+    function buildColorAndSizeControls() {
+      return `
+        <div>
+          <span class="text-xs font-extrabold text-slate-700 block mb-1">Pilih Warna Ceria:</span>
+          <div class="grid grid-cols-6 gap-1">
+            ${['#EF4444','#F97316','#FACC15','#22C55E','#3B82F6','#A855F7'].map(c =>
+              `<button onclick="pickColor('${c}')" class="btn-bouncy h-7 rounded-lg border-2 border-white shadow" style="background:${c}"></button>`
+            ).join('')}
+          </div>
+        </div>
+        ${buildSizeSliderOnly()}
+      `;
+    }
+
+    function buildSizeSliderOnly() {
+      return `
+        <div class="bg-slate-50 p-2.5 rounded-2xl border border-slate-200">
+          <div class="flex justify-between text-xs font-extrabold mb-1">
+            <span>Ukuran Kuas / Stempel:</span>
+            <span class="text-amber-600" id="lbl-brush-size">${simData.size} px</span>
+          </div>
+          <input type="range" min="2" max="24" value="${simData.size}" oninput="updateBrushSize(this.value)" class="w-full">
+        </div>
+      `;
+    }
+
+    function selectTool(t) { SoundFX.playPop(); simData.tool = t; showToast('Alat gambar dipilih!', '🖌️'); }
+    function pickColor(c) { SoundFX.playPop(); simData.color = c; }
+    function updateBrushSize(v) {
+      simData.size = Number(v);
+      const lbl = document.getElementById('lbl-brush-size');
+      if (lbl) lbl.textContent = `${v} px`;
+    }
+    function setTextureObj(t) { SoundFX.playPop(); simData.textureType = t; redrawSpecialModes(); }
+    function toggleMirrorMode() {
+      SoundFX.playPop();
+      simData.mirrorMode = !simData.mirrorMode;
+      const btn = document.getElementById('btn-mirror-toggle');
+      if (btn) btn.textContent = `🦋 Cermin Simetris: ${simData.mirrorMode ? 'AKTIF' : 'MATI'}`;
+    }
+    function updateFocusSize(v) {
+      simData.focusSize = Number(v);
+      const lbl = document.getElementById('lbl-focus-size');
+      if (lbl) lbl.textContent = `${v} px`;
+      redrawSpecialModes();
+    }
+    function updateFocusColor(c) { SoundFX.playPop(); simData.focusColor = c; redrawSpecialModes(); }
+    function resetRuangPreset() {
+      SoundFX.playReset();
+      simData.ruangItems = [
+        { type: 'gunung', x: 0.5, y: 0.45, scale: 1.0 },
+        { type: 'rumah', x: 0.35, y: 0.72, scale: 1.1 },
+        { type: 'pohon', x: 0.72, y: 0.58, scale: 0.65 }
+      ];
+      redrawSpecialModes();
+    }
+
+    function clearArtCanvasOnly() {
+      if (!artCtx || !artCanvas) return;
+      artCtx.clearRect(0, 0, artCanvas.width, artCanvas.height);
+    }
+
+    function drawMirrorGuide() {
+      if (!artCtx || !artCanvas) return;
+      const mid = artCanvas.width / 2;
+      artCtx.save();
+      artCtx.strokeStyle = '#CBD5E1';
+      artCtx.lineWidth = 2;
+      artCtx.setLineDash([6, 6]);
+      artCtx.beginPath();
+      artCtx.moveTo(mid, 0);
+      artCtx.lineTo(mid, artCanvas.height);
+      artCtx.stroke();
+      artCtx.restore();
+    }
+
+    function resetSimCanvas() {
+      SoundFX.playReset();
+      if (simData.mode === 'garis_bentuk' || simData.mode === 'warna_gradasi') {
+        clearArtCanvasOnly();
+      } else if (simData.mode === 'keseimbangan_irama') {
+        clearArtCanvasOnly();
+        drawMirrorGuide();
+      } else {
+        redrawSpecialModes();
+      }
+      showToast('Kanvas dibersihkan!', '🧹');
+    }
+
+    function saveArtWork() {
+      if (!artCanvas) return;
+      SoundFX.playStar();
+      // Gabungkan latar putih agar hasil PNG tidak transparan
+      const temp = document.createElement('canvas');
+      temp.width = artCanvas.width;
+      temp.height = artCanvas.height;
+      const tctx = temp.getContext('2d');
+      tctx.fillStyle = '#FFFFFF';
+      tctx.fillRect(0, 0, temp.width, temp.height);
+      tctx.drawImage(artCanvas, 0, 0);
+
+      const link = document.createElement('a');
+      link.download = `Karya_Seni_Rupa_Kelas5_${simData.mode}.png`;
+      link.href = temp.toDataURL('image/png');
+      link.click();
+      showToast('Karya hebatmu berhasil disimpan!', '🏆');
+    }
+
+    function attachArtEvents() {
+      const getXY = (e) => {
+        const rect = artCanvas.getBoundingClientRect();
+        const cx = e.touches ? e.touches[0].clientX : e.clientX;
+        const cy = e.touches ? e.touches[0].clientY : e.clientY;
+        return { x: cx - rect.left, y: cy - rect.top };
+      };
+
+      const start = (e) => {
+        const { x, y } = getXY(e);
+        if (simData.mode === 'garis_bentuk' || simData.mode === 'warna_gradasi' || simData.mode === 'keseimbangan_irama') {
+          if (simData.tool.startsWith('stamp_')) {
+            drawStampAt(x, y);
+            SoundFX.playPop();
+            return;
+          }
+          simData.isDrawing = true;
+          simData.lastX = x;
+          simData.lastY = y;
+          SoundFX.playDraw();
+        } else if (simData.mode === 'tekstur_cahaya') {
+          simData.lightX = x / artCanvas.width;
+          simData.lightY = y / artCanvas.height;
+          redrawSpecialModes();
+        } else if (simData.mode === 'ruang') {
+          // Cek apakah mengklik salah satu objek ruang
+          simData.ruangItems.forEach((item, idx) => {
+            const ix = item.x * artCanvas.width;
+            const iy = item.y * artCanvas.height;
+            if (Math.hypot(x - ix, y - iy) < 55) {
+              simData.draggingRuangIdx = idx;
+              SoundFX.playPop();
+            }
+          });
+        }
+      };
+
+      const move = (e) => {
+        const { x, y } = getXY(e);
+        if (simData.isDrawing) {
+          drawBrushSegment(simData.lastX, simData.lastY, x, y);
+          if (simData.mode === 'keseimbangan_irama' && simData.mirrorMode) {
+            const w = artCanvas.width;
+            drawBrushSegment(w - simData.lastX, simData.lastY, w - x, y);
+          }
+          simData.lastX = x;
+          simData.lastY = y;
+          SoundFX.playDraw();
+        } else if (simData.mode === 'tekstur_cahaya') {
+          simData.lightX = x / artCanvas.width;
+          simData.lightY = y / artCanvas.height;
+          redrawSpecialModes();
+        } else if (simData.mode === 'ruang' && simData.draggingRuangIdx >= 0) {
+          const item = simData.ruangItems[simData.draggingRuangIdx];
+          item.x = Math.max(0.1, Math.min(0.9, x / artCanvas.width));
+          item.y = Math.max(0.38, Math.min(0.88, y / artCanvas.height));
+          redrawSpecialModes();
+        }
+      };
+
+      const end = () => {
+        simData.isDrawing = false;
+        simData.draggingRuangIdx = -1;
+      };
+
+      artCanvas.addEventListener('mousedown', start);
+      artCanvas.addEventListener('mousemove', move);
+      window.addEventListener('mouseup', end);
+
+      artCanvas.addEventListener('touchstart', (e) => { e.preventDefault(); start(e); }, { passive: false });
+      artCanvas.addEventListener('touchmove', (e) => { e.preventDefault(); move(e); }, { passive: false });
+      window.addEventListener('touchend', end);
+    }
+
+    function drawBrushSegment(x1, y1, x2, y2) {
+      artCtx.save();
+      artCtx.lineCap = 'round';
+      artCtx.lineJoin = 'round';
+      artCtx.lineWidth = simData.size;
+
+      if (simData.tool === 'brush_pelangi') {
+        simData.wavePhase = (simData.wavePhase + 6) % 360;
+        artCtx.strokeStyle = `hsl(${simData.wavePhase}, 88%, 52%)`;
+        artCtx.beginPath(); artCtx.moveTo(x1, y1); artCtx.lineTo(x2, y2); artCtx.stroke();
+      } else if (simData.tool === 'brush_gelombang') {
+        simData.wavePhase += 0.55;
+        const offset = Math.sin(simData.wavePhase) * (simData.size * 1.4);
+        artCtx.strokeStyle = simData.color;
+        artCtx.beginPath(); artCtx.moveTo(x1, y1 + offset); artCtx.lineTo(x2, y2 - offset); artCtx.stroke();
+      } else if (simData.tool === 'brush_zigzag') {
+        simData.wavePhase += 1;
+        const dir = simData.wavePhase % 2 === 0 ? 1 : -1;
+        artCtx.strokeStyle = simData.color;
+        artCtx.beginPath(); artCtx.moveTo(x1, y1); artCtx.lineTo((x1 + x2) / 2, (y1 + y2) / 2 + dir * simData.size * 2); artCtx.lineTo(x2, y2); artCtx.stroke();
+      } else {
+        artCtx.strokeStyle = simData.color;
+        artCtx.beginPath(); artCtx.moveTo(x1, y1); artCtx.lineTo(x2, y2); artCtx.stroke();
+      }
+      artCtx.restore();
+    }
+
+    function drawStampAt(x, y) {
+      const s = simData.size * 4 + 18;
+      artCtx.save();
+      artCtx.fillStyle = simData.color;
+      artCtx.strokeStyle = '#1E293B';
+      artCtx.lineWidth = 2;
+
+      if (simData.tool === 'stamp_kotak') {
+        artCtx.beginPath();
+        artCtx.roundRect(x - s / 2, y - s / 2, s, s, 8);
+        artCtx.fill(); artCtx.stroke();
+      } else if (simData.tool === 'stamp_lingkaran') {
+        artCtx.beginPath();
+        artCtx.arc(x, y, s / 2, 0, Math.PI * 2);
+        artCtx.fill(); artCtx.stroke();
+      } else if (simData.tool === 'stamp_daun') {
+        artCtx.beginPath();
+        artCtx.moveTo(x, y - s * 0.6);
+        artCtx.quadraticCurveTo(x + s * 0.6, y, x, y + s * 0.6);
+        artCtx.quadraticCurveTo(x - s * 0.6, y, x, y - s * 0.6);
+        artCtx.fill(); artCtx.stroke();
+      }
+      artCtx.restore();
+    }
+
+    function redrawSpecialModes() {
+      if (!artCtx || !artCanvas) return;
+      const w = artCanvas.width;
+      const h = artCanvas.height;
+      artCtx.clearRect(0, 0, w, h);
+
+      if (simData.mode === 'tekstur_cahaya') {
+        const lx = simData.lightX * w;
+        const ly = simData.lightY * h;
+
+        if (simData.textureType === 'bola3d') {
+          artCtx.fillStyle = '#F1F5F9';
+          artCtx.fillRect(0, h * 0.72, w, h * 0.28);
+
+          const cx = w / 2, cy = h * 0.52, r = Math.min(w, h) * 0.24;
+          const dx = cx - lx, dy = cy - ly;
+          // Bayangan jatuh
+          artCtx.fillStyle = 'rgba(15, 23, 42, 0.25)';
+          artCtx.beginPath();
+          artCtx.ellipse(cx + dx * 0.45, cy + r * 0.92, r * 1.1, r * 0.22, 0, 0, Math.PI * 2);
+          artCtx.fill();
+
+          // Bola 3D
+          const hlX = cx - dx * 0.28;
+          const hlY = cy - dy * 0.28;
+          const grad = artCtx.createRadialGradient(hlX, hlY, r * 0.08, cx, cy, r);
+          grad.addColorStop(0, '#FFFFFF');
+          grad.addColorStop(0.35, '#FB7185');
+          grad.addColorStop(0.85, '#9F1239');
+          grad.addColorStop(1, '#4C0519');
+          artCtx.fillStyle = grad;
+          artCtx.beginPath(); artCtx.arc(cx, cy, r, 0, Math.PI * 2); artCtx.fill();
+        } else if (simData.textureType === 'bata') {
+          artCtx.fillStyle = '#94A3B8';
+          artCtx.fillRect(20, 20, w - 40, h - 40);
+          const rows = 6, cols = 5;
+          const bh = (h - 40) / rows, bw = (w - 40) / cols;
+          for (let r = 0; r < rows; r++) {
+            const off = (r % 2) * (bw / 2);
+            for (let c = -1; c <= cols; c++) {
+              artCtx.fillStyle = '#DC2626';
+              artCtx.fillRect(22 + c * bw + off, 22 + r * bh, bw - 5, bh - 5);
+            }
+          }
+          const lg = artCtx.createRadialGradient(lx, ly, 15, lx, ly, w * 0.55);
+          lg.addColorStop(0, 'rgba(255,255,255,0.45)');
+          lg.addColorStop(1, 'rgba(15,23,42,0.55)');
+          artCtx.fillStyle = lg;
+          artCtx.fillRect(20, 20, w - 40, h - 40);
+        } else if (simData.textureType === 'kayu') {
+          artCtx.fillStyle = '#B45309';
+          artCtx.fillRect(20, 20, w - 40, h - 40);
+          artCtx.strokeStyle = '#78350F';
+          artCtx.lineWidth = 3;
+          for (let y = 28; y < h - 25; y += 10) {
+            artCtx.beginPath();
+            for (let x = 20; x <= w - 20; x += 20) {
+              const wy = y + Math.sin(x * 0.02 + y * 0.05) * 6;
+              x === 20 ? artCtx.moveTo(x, wy) : artCtx.lineTo(x, wy);
+            }
+            artCtx.stroke();
+          }
+          const lg = artCtx.createRadialGradient(lx, ly, 15, lx, ly, w * 0.55);
+          lg.addColorStop(0, 'rgba(255,255,255,0.45)');
+          lg.addColorStop(1, 'rgba(15,23,42,0.55)');
+          artCtx.fillStyle = lg;
+          artCtx.fillRect(20, 20, w - 40, h - 40);
+        }
+
+        // Ikon Senter Cahaya
+        artCtx.fillStyle = '#FACC15';
+        artCtx.beginPath(); artCtx.arc(lx, ly, 15, 0, Math.PI * 2); artCtx.fill();
+        artCtx.strokeStyle = '#B45309'; artCtx.lineWidth = 3; artCtx.stroke();
+        artCtx.fillStyle = '#1E293B'; artCtx.font = 'bold 11px Nunito';
+        artCtx.fillText('🔦 Senter', lx + 18, ly + 4);
+      } else if (simData.mode === 'ruang') {
+        // Langit & Padang Rumput
+        artCtx.fillStyle = '#BAE6FD';
+        artCtx.fillRect(0, 0, w, h * 0.45);
+        artCtx.fillStyle = '#86EFAC';
+        artCtx.fillRect(0, h * 0.45, w, h * 0.55);
+
+        // Gunung di kejauhan
+        artCtx.fillStyle = '#38BDF8';
+        artCtx.beginPath();
+        artCtx.moveTo(w * 0.1, h * 0.45);
+        artCtx.lineTo(w * 0.35, h * 0.16);
+        artCtx.lineTo(w * 0.65, h * 0.45);
+        artCtx.fill();
+
+        artCtx.fillStyle = '#0284C7';
+        artCtx.beginPath();
+        artCtx.moveTo(w * 0.42, h * 0.45);
+        artCtx.lineTo(w * 0.72, h * 0.18);
+        artCtx.lineTo(w * 0.96, h * 0.45);
+        artCtx.fill();
+
+        // Gambar objek yang bisa digeser (skala otomatis sesuai jarak Y!)
+        simData.ruangItems.forEach(item => {
+          const ix = item.x * w;
+          const iy = item.y * h;
+          const depthScale = 0.45 + ((item.y - 0.38) / 0.5) * 0.95;
+
+          artCtx.save();
+          artCtx.translate(ix, iy);
+          artCtx.scale(depthScale, depthScale);
+
+          if (item.type === 'rumah') {
+            artCtx.fillStyle = '#FBBF24';
+            artCtx.fillRect(-30, -25, 60, 45);
+            artCtx.fillStyle = '#F43F5E';
+            artCtx.beginPath(); artCtx.moveTo(-36, -25); artCtx.lineTo(0, -55); artCtx.lineTo(36, -25); artCtx.fill();
+            artCtx.fillStyle = '#78350F';
+            artCtx.fillRect(-8, 0, 16, 20);
+          } else if (item.type === 'pohon') {
+            artCtx.fillStyle = '#92400E';
+            artCtx.fillRect(-7, -10, 14, 32);
+            artCtx.fillStyle = '#16A34A';
+            artCtx.beginPath(); artCtx.arc(0, -28, 26, 0, Math.PI * 2); artCtx.fill();
+          }
+          artCtx.restore();
+        });
+      } else if (simData.mode === 'penekanan_proporsi') {
+        const cx = w / 2, cy = h / 2;
+        // Lingkaran pendukung abu-abu lembut
+        const coords = [[w*0.2, h*0.3], [w*0.8, h*0.3], [w*0.2, h*0.72], [w*0.8, h*0.72], [w*0.5, h*0.2], [w*0.5, h*0.82]];
+        coords.forEach(([px, py]) => {
+          artCtx.fillStyle = '#CBD5E1';
+          artCtx.beginPath(); artCtx.arc(px, py, 22, 0, Math.PI * 2); artCtx.fill();
+        });
+
+        // Objek Utama (Penekanan & Proporsi)
+        artCtx.fillStyle = simData.focusColor;
+        artCtx.beginPath();
+        artCtx.arc(cx, cy, simData.focusSize, 0, Math.PI * 2);
+        artCtx.fill();
+        artCtx.strokeStyle = '#FACC15';
+        artCtx.lineWidth = 5;
+        artCtx.stroke();
+
+        artCtx.fillStyle = '#FFFFFF';
+        artCtx.font = 'bold 13px Fredoka';
+        artCtx.textAlign = 'center';
+        artCtx.fillText('PUSAT PERHATIAN', cx, cy + 4);
+      }
+    }
+
+    // =========================================================================
+    // 5. LKPD INTERAKTIF: 8 SOAL BERGAMBAR + BINTANG PRESTASI + UNDUH
+    // =========================================================================
+    const LKPD_QUESTIONS = [
+      {
+        q: '1. Perhatikan gambar garis di bawah ini! Garis yang patah-patah tajam seperti kilat petir disebut garis...',
+        svg: `<svg viewBox="0 0 140 36" class="h-9"><polyline points="10,28 32,8 54,28 76,8 98,28 120,8" fill="none" stroke="#F43F5E" stroke-width="4" stroke-linecap="round"/></svg>`,
+        opts: ['Garis lurus', 'Garis lengkung', 'Garis zig-zag', 'Garis spiral'],
+        ans: 2
+      },
+      {
+        q: '2. Manakah kelompok warna di bawah ini yang termasuk Warna Primer (warna dasar)?',
+        svg: `<svg viewBox="0 0 140 36" class="h-9"><circle cx="30" cy="18" r="12" fill="#EF4444"/><circle cx="70" cy="18" r="12" fill="#FACC15"/><circle cx="110" cy="18" r="12" fill="#3B82F6"/></svg>`,
+        opts: ['Merah, Kuning, Biru', 'Hijau, Ungu, Oranye', 'Hitam, Putih, Abu-abu', 'Merah muda, Cokelat, Krem'],
+        ans: 0
+      },
+      {
+        q: '3. Bentuk daun, awan, dan batu kali yang memiliki lengkungan bebas seperti di alam disebut bentuk...',
+        svg: `<svg viewBox="0 0 140 36" class="h-9"><path d="M45 28 C 30 18, 40 6, 70 6 C 100 6, 108 20, 88 28 Z" fill="#34D399"/></svg>`,
+        opts: ['Bentuk geometris', 'Bentuk organis', 'Bentuk kubus', 'Bentuk piramida'],
+        ans: 1
+      },
+      {
+        q: '4. Kulit buah durian terasa tajam saat diraba dengan tangan. Sifat permukaan benda seperti ini disebut unsur...',
+        svg: `<svg viewBox="0 0 140 36" class="h-9"><rect x="30" y="6" width="80" height="24" rx="6" fill="#D97706"/><circle cx="48" cy="14" r="2.5" fill="#FEF3C7"/><circle cx="70" cy="22" r="2.5" fill="#FEF3C7"/><circle cx="92" cy="14" r="2.5" fill="#FEF3C7"/></svg>`,
+        opts: ['Ruang', 'Tekstur nyata', 'Gelap terang', 'Proporsi'],
+        ans: 1
+      },
+      {
+        q: '5. Pada gambar pemandangan jalan raya, pohon yang berada sangat jauh di ujung jalan sebaiknya digambar...',
+        svg: `<svg viewBox="0 0 140 36" class="h-9"><polygon points="70,6 30,32 110,32" fill="#64748B"/></svg>`,
+        opts: ['Lebih besar dan tinggi', 'Lebih kecil', 'Sama besar dengan pohon di depan', 'Berwarna hitam semua'],
+        ans: 1
+      },
+      {
+        q: '6. Gambar sayap kupu-kupu di mana bagian kiri dan bagian kanan sama persis menerapkan prinsip...',
+        svg: `<svg viewBox="0 0 140 36" class="h-9"><ellipse cx="52" cy="18" rx="16" ry="12" fill="#A855F7"/><ellipse cx="88" cy="18" rx="16" ry="12" fill="#A855F7"/><rect x="68" y="6" width="4" height="24" fill="#1E293B"/></svg>`,
+        opts: ['Keseimbangan simetris', 'Penekanan warna', 'Tekstur semu', 'Gelap terang'],
+        ans: 0
+      },
+      {
+        q: '7. Pengulangan gambar bunga atau tiang lampu secara teratur sehingga tampak hidup seperti alunan lagu disebut prinsip...',
+        svg: `<svg viewBox="0 0 140 36" class="h-9"><circle cx="26" cy="18" r="9" fill="#14B8A6"/><circle cx="56" cy="18" r="9" fill="#38BDF8"/><circle cx="86" cy="18" r="9" fill="#14B8A6"/><circle cx="116" cy="18" r="9" fill="#38BDF8"/></svg>`,
+        opts: ['Irama atau Ritme', 'Proporsi', 'Gelap terang', 'Ruang'],
+        ans: 0
+      },
+      {
+        q: '8. Mewarnai langit dengan krayon dari biru tua, lalu biru muda, hingga putih secara bertahap dan halus menerapkan prinsip...',
+        svg: `<svg viewBox="0 0 140 36" class="h-9"><defs><linearGradient id="qGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#1D4ED8"/><stop offset="100%" stop-color="#BAE6FD"/></linearGradient></defs><rect x="20" y="6" width="100" height="24" rx="6" fill="url(#qGrad)"/></svg>`,
+        opts: ['Gradasi', 'Tekstur kasar', 'Garis zig-zag', 'Keseimbangan asimetris'],
+        ans: 0
+      }
+    ];
+
+    const userAnswers = new Array(LKPD_QUESTIONS.length).fill(null);
+
+    function renderLKPDQuiz() {
+      const container = document.getElementById('lkpd-quiz-list');
+      container.innerHTML = LKPD_QUESTIONS.map((item, qIdx) => `
+        <div class="bg-slate-50 border-2 border-slate-200 rounded-2xl p-3">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <p class="text-xs sm:text-sm font-extrabold text-slate-800 flex-1">${item.q}</p>
+            <div class="bg-white px-2.5 py-1 rounded-xl border border-slate-200 shrink-0">${item.svg}</div>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+            ${item.opts.map((opt, oIdx) => {
+              const chosen = userAnswers[qIdx] === oIdx;
+              const isCorrect = oIdx === item.ans;
+              let btnStyle = 'bg-white hover:bg-sky-50 border-slate-200 text-slate-700';
+              let icon = '';
+              if (chosen) {
+                if (isCorrect) {
+                  btnStyle = 'bg-emerald-100 border-emerald-500 text-emerald-900';
+                  icon = ' ✅';
+                } else {
+                  btnStyle = 'bg-rose-100 border-rose-500 text-rose-900';
+                  icon = ' ❌';
+                }
+              }
+              return `
+                <button onclick="answerLKPD(${qIdx}, ${oIdx})" class="btn-bouncy text-left px-3 py-2 rounded-xl border-2 text-xs font-bold transition-all ${btnStyle}">
+                  ${String.fromCharCode(65 + oIdx)}. ${opt}${icon}
+                </button>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function answerLKPD(qIdx, oIdx) {
+      userAnswers[qIdx] = oIdx;
+      const isRight = oIdx === LKPD_QUESTIONS[qIdx].ans;
+      if (isRight) {
+        SoundFX.playStar();
+        showToast('Hebat! Jawabanmu Benar ⭐', '🎉');
+      } else {
+        SoundFX.playWrong();
+        showToast('Ups, coba periksa lagi di Tab Teori ya!', '💡');
+      }
+      renderLKPDQuiz();
+      updateLKPDScore();
+    }
+
+    function updateLKPDScore() {
+      let stars = 0;
+      userAnswers.forEach((ans, idx) => {
+        if (ans === LKPD_QUESTIONS[idx].ans) stars++;
+      });
+
+      const score = Math.round((stars / LKPD_QUESTIONS.length) * 100);
+      const starIcons = '⭐'.repeat(stars) + '☆'.repeat(LKPD_QUESTIONS.length - stars);
+
+      document.getElementById('lkpd-stars-display').textContent = starIcons;
+      document.getElementById('lkpd-score-text').textContent = `Nilai: ${score} / 100`;
+
+      const mot = document.getElementById('lkpd-motivation');
+      if (stars === 8) mot.textContent = 'Luar Biasa! Kamu meraih 8 Bintang Sempurna! 🏆';
+      else if (stars >= 5) mot.textContent = `Bagus sekali! Kamu sudah mengumpulkan ${stars} Bintang!`;
+      else mot.textContent = `Terus semangat! Kamu sudah mendapat ${stars} dari 8 Bintang.`;
+    }
+
+    function resetLKPD() {
+      SoundFX.playReset();
+      userAnswers.fill(null);
+      document.getElementById('lkpd-nama').value = '';
+      document.getElementById('lkpd-kelas').value = '5 SD';
+      document.getElementById('lkpd-absen').value = '';
+      document.getElementById('lkpd-refleksi').value = '';
+      renderLKPDQuiz();
+      updateLKPDScore();
+      showToast('LKPD telah direset ke awal!', '🔄');
+    }
+
+    function downloadLKPD() {
+      const nama = document.getElementById('lkpd-nama').value.trim() || 'Siswa Kelas 5';
+      const kelas = document.getElementById('lkpd-kelas').value.trim() || '5 SD';
+      const absen = document.getElementById('lkpd-absen').value.trim() || '-';
+      const nilai = document.getElementById('lkpd-score-text').textContent;
+      const bintang = document.getElementById('lkpd-stars-display').textContent;
+      const refleksi = document.getElementById('lkpd-refleksi').value.trim() || '(Belum diisi)';
+
+      const text = [
+        '====================================================',
+        'HASIL LKPD LAB MAYA SENI RUPA - KELAS 5 SD',
+        'Materi: Unsur-Unsur & Prinsip Dasar Seni Rupa',
+        '====================================================',
+        `Nama Siswa : ${nama}`,
+        `Kelas      : ${kelas}`,
+        `No. Absen  : ${absen}`,
+        `Bintang    : ${bintang}`,
+        `${nilai}`,
+        '----------------------------------------------------',
+        'Refleksi Karya Simulasi:',
+        refleksi,
+        '===================================================='
+      ].join('\n');
+
+      const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Hasil_LKPD_SeniRupa_${nama.replace(/\s+/g, '_')}.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+
+      SoundFX.playStar();
+      showToast('Hasil LKPD berhasil diunduh!', '📥');
+    }
+
+    // =========================================================================
+    // 6. NAVIGASI TAB & RESET GLOBAL
+    // =========================================================================
+    function switchTab(tabId) {
+      SoundFX.playPop();
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+      document.querySelectorAll('.tab-nav-btn').forEach(b => {
+        b.className = 'tab-nav-btn btn-bouncy flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold text-slate-600 hover:bg-white';
+      });
+
+      const panel = document.getElementById(`panel-${tabId}`);
+      const btn = document.getElementById(`tab-btn-${tabId}`);
+      if (panel) panel.classList.remove('hidden');
+      if (btn) {
+        btn.className = 'tab-nav-btn btn-bouncy flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold bg-amber-400 text-slate-900 shadow-sm';
+      }
+
+      if (tabId === 'simulasi') {
+        setTimeout(() => resizeArtCanvas(true), 40);
+      }
+    }
+
+    function openResetModal() {
+      SoundFX.playPop();
+      document.getElementById('reset-modal').classList.remove('hidden');
+    }
+
+    function closeResetModal() {
+      SoundFX.playPop();
+      document.getElementById('reset-modal').classList.add('hidden');
+    }
+
+    function confirmGlobalReset() {
+      closeResetModal();
+      filterTeori('semua');
+      setSimMode('garis_bentuk', false);
+      resetSimCanvas();
+      resetLKPD();
+      switchTab('teori');
+      SoundFX.playReset();
+      showToast('Semua bagian Lab Maya telah dikembalikan ke awal!', '🔄');
+    }
+
+    // Jalankan saat halaman siap
+    window.addEventListener('DOMContentLoaded', () => {
+      renderGallery();
+      initSimStudio();
+      renderLKPDQuiz();
+    });
+  </script>
+</body>
+</html>
